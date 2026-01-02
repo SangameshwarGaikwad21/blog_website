@@ -154,10 +154,6 @@ const getSingleUser=asyncHandler(async(req,res)=>{
 
 const getAllUsers=asyncHandler(async(req,res)=>{
 
-    // if(req.user.role !== "admin"){
-    //     throw new ApiError(401,"access denied only admin can access this")
-    // }
-
     const user=await User.find({}).select("-password -refreshToken")
 
     return res.status(200).json(
