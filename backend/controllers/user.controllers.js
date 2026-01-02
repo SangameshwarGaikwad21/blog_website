@@ -201,7 +201,9 @@ const changeUserAvatar=asyncHandler(async(req,res)=>{
                 avatar: avatar.url
             }
         },
-        {new: true}
+        {
+            new: true
+        }
     ).select("-password")
 
     return res
