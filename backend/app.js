@@ -4,6 +4,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/user.routes.js"
 import postRouer from "./routes/post.routes.js"
+import commentsRouter from "./routes/comments.routes.js"
 
 const app=express()
 
@@ -22,5 +23,5 @@ app.use(cookieParser())
 
 app.use("/api/v1/users",userRouter)
 app.use("/api/v1/posts",postRouer)
-
+app.use("/api/v1/comments",commentsRouter)
 export default app;
