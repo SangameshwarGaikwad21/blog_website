@@ -142,10 +142,11 @@ const logout=asyncHandler(async(req,res)=>{
 }) 
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incomingRefreshToken =
+        req.cookies?.refreshToken || req.body?.refreshToken
 
     if (!incomingRefreshToken) {
-        throw new ApiError(401, "unauthorized request")
+        throw new ApiError(401, "Unauthorized request")
     }
 
     try {
@@ -153,41 +154,46 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             incomingRefreshToken,
             process.env.REFRESH_TOKEN_SECRET
         )
-    
-        const user = await User.findById(decodedToken?._id)
-    
+
+        const user = await User.findById(decodedToken._id)
+
         if (!user) {
             throw new ApiError(401, "Invalid refresh token")
         }
-    
-        if (incomingRefreshToken !== user?.refreshToken) {
-            throw new ApiError(401, "Refresh token is expired or used")
-            
+
+        if (incomingRefreshToken !== user.refreshToken) {
+            throw new ApiError(401, "Refresh token expired or already used")
         }
-    
+
+        const { accessToken, refreshToken } =
+            await generateAccessAndRefereshTokens(user._id)
+
+        
         const options = {
             httpOnly: true,
-            secure: true
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
         }
-    
-        const {accessToken, newRefreshToken} = await generateAccessAndRefereshTokens(user._id)
+
     
         return res
-        .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", newRefreshToken, options)
-        .json(
-            new ApiResponse(
-                200, 
-                {accessToken, refreshToken: newRefreshToken},
-                "Access token refreshed"
+            .status(200)
+            .cookie("accessToken", accessToken, options)
+            .cookie("refreshToken", refreshToken, options)
+            .json(
+                new ApiResponse(
+                    200,
+                    { accessToken, refreshToken },
+                    "Access token refreshed successfully"
+                )
             )
-        )
-    } catch (error) {
-        throw new ApiError(401, error?.message || "Invalid refresh token")
-    }
 
+    } catch (error) {
+        throw new ApiError(500, error.message || "Invalid refresh token")
+    }
 })
+
 
 
 const getSingleUser=asyncHandler(async(req,res)=>{
@@ -266,36 +272,43 @@ const changeUserAvatar=asyncHandler(async(req,res)=>{
 const changeAccountDetails=asyncHandler(async(req,res)=>{
         
     try {
-        const {username,email}=req.body
-    
-        if(!username || !email){
-            throw new ApiError(401,"All Fileds are required")
-        }
+    const { username, email } = req.body
 
-        const user=await User.findByIdAndUpdate(
-            req.user?._id,
-            {
-                $set:{
-                    username,
-                    email:email
-                }                
-            },
-            {
-                new:true
-            }
-        ).select("-password")
-
-
-        return res
-        .stauts(200)
-        .json(
-            new ApiResponse(201,user,"User Account Deatails Updated")
-        )
-
-    } 
-    catch (error) {
-        
+    if (!username || !email) {
+        throw new ApiError(400, "All fields are required")
     }
+
+    const existingUser = await User.findOne({
+        _id: { $ne: req.user._id },
+        $or: [{ username }, { email }]
+    })
+
+    if (existingUser) {
+        throw new ApiError(409, "Username or email already exists")
+    }
+
+    const user = await User.findByIdAndUpdate(
+        req.user._id,
+        {
+            $set: { username, email }
+        },
+        {
+            new: true,
+            runValidators: true
+        }
+    ).select("-password")
+
+    return res.status(200).json(
+        new ApiResponse(200, user, "User details updated successfully")
+    )
+
+} catch (error) {
+    throw new ApiError(
+        error.statusCode || 500,
+        error.message || "User update failed"
+    )
+
+}
 
 })
 

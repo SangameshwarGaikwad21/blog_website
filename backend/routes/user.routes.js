@@ -20,6 +20,6 @@ router.route("/change-password").post(VerifyJWT,changeUserPassword)
 router.route("/change-avatar").post(VerifyJWT,upload.single("avatar"),changeUserAvatar)
 router.route("/me").get(VerifyJWT,getSingleUser)
 router.route("/refresh-token").post(refreshAccessToken)
-router.route("/change-details").patch(changeAccountDetails)
+router.route("/change-details").patch(VerifyJWT,changeAccountDetails)
 
 export default router;
