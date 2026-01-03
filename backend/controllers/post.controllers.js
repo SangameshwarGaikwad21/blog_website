@@ -31,11 +31,11 @@ const createPost = asyncHandler(async (req, res) => {
         }
     
         const post = await Post.create({
-        title,
-        context,
-        category,
-        thumbnail: uploadedImage.secure_url,
-        author: req.user._id,
+            title,
+            context,
+            category,
+            thumbnail: uploadedImage.secure_url,
+            author: req.user._id,
         });
     
         return res.status(201).json(
