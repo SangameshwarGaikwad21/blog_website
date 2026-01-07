@@ -1,16 +1,61 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+src/
+│
+├── api/
+│   └── axios.js                # Axios instance (baseURL, interceptors)
+│
+├── assets/
+│   ├── images/
+│   └── icons/
+│
+├── components/
+│   ├── common/
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Loader.jsx
+│   │   └── ProtectedRoute.jsx
+│   │
+│   ├── blog/
+│   │   ├── BlogCard.jsx
+│   │   ├── BlogList.jsx
+│   │   └── BlogForm.jsx        # Create / Edit blog
+│   │
+│   └── auth/
+│       ├── LoginForm.jsx
+│       └── SignupForm.jsx
+│
+├── context/
+│   ├── AuthContext.jsx
+│   └── BlogContext.jsx
+│
+├── hooks/
+│   ├── useAuth.js
+│   └── useBlogs.js
+│
+├── pages/                      # Route-level pages
+│   ├── Home.jsx
+│   ├── Blogs.jsx               # Show all blogs
+│   ├── BlogDetails.jsx         # Single blog
+│   ├── CreateBlog.jsx
+│   ├── EditBlog.jsx
+│   ├── Login.jsx
+│   ├── Signup.jsx
+│   └── Profile.jsx
+│
+├── routes/
+│   └── AppRoutes.jsx           # React Router configuration
+│
+├── services/
+│   ├── auth.service.js
+│   └── blog.service.js
+│
+├── styles/
+│   ├── index.css
+│   └── tailwind.css
+│
+├── utils/
+│   ├── constants.js
+│   └── formatDate.js
+│
+├── App.jsx
+├── main.jsx
+└── index.html

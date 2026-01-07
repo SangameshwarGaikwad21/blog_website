@@ -1,0 +1,1 @@
+export const blogCategories=["All", "Technology","StartUp","Car"]
