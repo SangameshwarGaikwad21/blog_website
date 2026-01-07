@@ -10,7 +10,7 @@ function Navbar() {
         <p onClick={()=>navigate("/")}>Blog_App</p>
         
         <button
-        onClick={()=>navigate("/signup")} 
+        onClick={()=>navigate("/register")} 
         className='bg-blue-500 flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary px-10 py-2.5'>
             SIGNUP
         </button>

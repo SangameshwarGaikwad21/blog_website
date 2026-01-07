@@ -1,11 +1,21 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-function BlogCard() {
+
+export default function BlogCard({ blog }) {
   return (
-    <div>
-        BlogCard
-    </div>
-  )
-}
+    <Link to={`/blog/${blog._id}`}>
+    <div className="border rounded shadow p-4">
+      <h2 className="text-lg font-bold">{blog.title}</h2>
+      <p>{blog.context}</p>
 
-export default BlogCard
+      {blog.thumbnail && (
+        <img
+          src={blog.thumbnail}
+          alt={blog.title}
+          style={{ width: "100%", marginTop: "10px" }}
+        />
+      )}
+    </div>
+    </Link>
+  );
+}

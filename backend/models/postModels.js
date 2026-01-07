@@ -8,7 +8,7 @@ const postSchema=new Schema({
             trim:true,
             index:true
         },
-        context: {
+        content: {
             type: String,
             required: [true, "The Description is required"],
             minlength: [10, "Description must be at least 10 characters"],
