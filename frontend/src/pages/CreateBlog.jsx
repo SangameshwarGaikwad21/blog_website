@@ -32,7 +32,7 @@ export default function CreateBlog({ onNewBlog }) {
     setError("");
 
     if (!formData.title || !formData.content || !formData.category) {
-      setError("Title, content, and category are required");
+      setError("Title, content, Thumbnail ,and category are required");
       return;
     }
 
@@ -58,9 +58,17 @@ export default function CreateBlog({ onNewBlog }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="border p-4 rounded shadow mb-4 flex flex-col gap-3"
+      className="min-h-screen flex flex-col gap-4 p-6 max-w-lg mx-auto h-screen pt-50"
     >
       <h2 className="text-xl font-bold">Create a Blog</h2>
+
+     <input type="file" accept="image/*" onChange={handleFileChange} />
+
+      {preview && (
+        <img src={preview} alt="thumbnail preview" className="w-32 h-32 object-cover text-center" />
+      )}
+
+      {error && <p className="text-red-500">{error}</p>}
 
       <input
         type="text"
@@ -88,18 +96,10 @@ export default function CreateBlog({ onNewBlog }) {
         className="border px-2 py-1"
       />
 
-      <input type="file" accept="image/*" onChange={handleFileChange} />
-
-      {preview && (
-        <img src={preview} alt="thumbnail preview" className="w-32 h-32 object-cover" />
-      )}
-
-      {error && <p className="text-red-500">{error}</p>}
-
       <button
         type="submit"
         disabled={loading}
-        className="bg-green-600 text-white py-2 rounded"
+        className="bg-blue-600 text-white py-2 rounded"
       >
         {loading ? "Creating..." : "Create Blog"}
       </button>
