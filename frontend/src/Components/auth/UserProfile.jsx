@@ -39,7 +39,6 @@ export default function Profile() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6">
         
-        {/* Avatar */}
         <div className="flex justify-center">
           <div className="relative">
             <img
@@ -51,16 +50,16 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* User Info */}
+        
         <div className="text-center mt-4 space-y-1">
           <h2 className="text-2xl font-semibold capitalize">{user.username}</h2>
           <p className="text-gray-500 text-sm">{user.email}</p>
         </div>
 
-        {/* Divider */}
+        
         <div className="my-6 border-t" />
 
-        {/* Details */}
+      
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-500">User ID</span>
@@ -78,7 +77,7 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* Buttons */}
+       
         <div className="mt-6 flex flex-col space-y-3">
           <Link to="/editprofile">
             <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-xl font-medium transition">
