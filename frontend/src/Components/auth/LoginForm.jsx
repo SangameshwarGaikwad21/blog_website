@@ -14,12 +14,10 @@ export default function LoginForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -33,7 +31,7 @@ export default function LoginForm() {
       setLoading(true);
       await loginUser(formData); 
       toast.success("Login successful!");
-      navigate("/createblog"); 
+      navigate("/home"); 
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     } finally {
@@ -42,21 +40,21 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen bg-gray-900 text-white px-4 md:px-20 gap-10">
       <form
         noValidate
         onSubmit={handleSubmit}
-        className="flex flex-col gap-3 p-6 w-96 rounded-lg shadow-lg"
+        className="flex flex-col w-full md:w-1/2 gap-4 bg-gray-800 p-8 rounded-2xl shadow-lg"
       >
-        <h1 className="text-center text-2xl font-bold">Login</h1>
+        <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
 
         <input
-          type="username"
+          type="text"
           name="username"
-          placeholder="Enter your email"
+          placeholder="Enter your username"
           value={formData.username}
           onChange={handleChange}
-          className="border px-2 py-1"
+          className="border border-gray-600 px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:border-blue-500"
         />
 
         <input
@@ -65,26 +63,33 @@ export default function LoginForm() {
           placeholder="Enter your password"
           value={formData.password}
           onChange={handleChange}
-          className="border px-2 py-1"
+          className="border border-gray-600 px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:border-blue-500"
         />
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-500 transition-all py-2 rounded text-lg font-semibold"
+          className="bg-blue-600 hover:bg-blue-700 transition-colors py-2 rounded-lg font-semibold text-lg"
         >
           {loading ? "Logging in..." : "Login"}
         </button>
 
-        <p className="text-center text-sm">
+        <p className="text-center text-sm text-gray-400">
           Don’t have an account?{" "}
-          <Link to="/register" className="text-blue-500">
-            Signup
+          <Link to="/" className="text-blue-500 hover:underline">
+            Register
           </Link>
         </p>
       </form>
+
+      <div className="text-center md:text-left md:w-1/2 space-y-4">
+        <h1 className="text-3xl font-bold">Welcome Back!</h1>
+        <p className="text-gray-300">
+          Login to access your account and start exploring amazing blogs on our platform.
+        </p>
+      </div>
     </div>
   );
 }

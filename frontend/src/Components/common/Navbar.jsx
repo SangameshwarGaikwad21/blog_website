@@ -8,12 +8,13 @@ function Navbar() {
   return (
     <div className='cursor-pointer flex justify-between items-center py-5 mx-8 
     sm:mx-20 xl:msx-22'>
-        <p onClick={()=>navigate("/")}>Blog_App</p>
+        <p onClick={()=>navigate("/home")}>Blog_App</p>
         
+         {/* add the user profile button */}
         <button
-        onClick={()=>navigate("/register")} 
+        onClick={()=>navigate("/profile")} 
         className='bg-blue-500 flex items-center gap-2 rounded-full text-sm cursor-pointer bg-primary px-10 py-2.5'>
-            SIGNUP
+           profile
         </button>
     </div>
   )
