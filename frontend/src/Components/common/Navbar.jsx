@@ -31,10 +31,9 @@ function Navbar() {
           onClick={() => navigate("/profile")}
           className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-full transition-all shadow hover:shadow-md"
         >
-          <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-            U
+          <div className="w-8  h-8 rounded-lg flex items-center justify-center text-white font-bold">
+            <span className="hidden sm:inline  p-2 font-medium">Profile</span>
           </div>
-          <span className="hidden sm:inline font-medium">Profile</span>
         </button>
       </div>
     </nav>
