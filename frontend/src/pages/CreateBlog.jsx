@@ -2,8 +2,6 @@ import { useState } from "react";
 import { createBlog } from "../services/blogService";
 
 export default function CreateBlog({ onNewBlog }) {
-
-  
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -22,7 +20,6 @@ export default function CreateBlog({ onNewBlog }) {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     setFormData({ ...formData, thumbnail: file });
     setPreview(URL.createObjectURL(file));
   };
@@ -32,7 +29,7 @@ export default function CreateBlog({ onNewBlog }) {
     setError("");
 
     if (!formData.title || !formData.content || !formData.category) {
-      setError("Title, content, Thumbnail ,and category are required");
+      setError("Title, content, Thumbnail, and category are required");
       return;
     }
 
@@ -49,60 +46,77 @@ export default function CreateBlog({ onNewBlog }) {
       setFormData({ title: "", content: "", category: "", thumbnail: null });
       setPreview(null);
     } catch (err) {
-      setError(err.response?.data?.message);
+      setError(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="min-h-screen flex flex-col gap-4 p-6 max-w-lg mx-auto h-screen pt-50"
-    >
-      <h2 className="text-xl font-bold">Create a Blog</h2>
-
-     <input type="file" accept="image/*" onChange={handleFileChange} />
-
-      {preview && (
-        <img src={preview} alt="thumbnail preview" className="w-32 h-32 object-cover text-center" />
-      )}
-
-      {error && <p className="text-red-500">{error}</p>}
-
-      <input
-        type="text"
-        name="title"
-        placeholder="Blog Title"
-        value={formData.title}
-        onChange={handleChange}
-        className="border px-2 py-1"
-      />
-
-      <textarea
-        name="content"
-        placeholder="Blog Content"
-        value={formData.content}
-        onChange={handleChange}
-        className="border px-2 py-1"
-      />
-
-      <input
-        type="text"
-        name="category"
-        placeholder="Category"
-        value={formData.category}
-        onChange={handleChange}
-        className="border px-2 py-1"
-      />
-
-      <button
-        type="submit"
-        disabled={loading}
-        className="bg-blue-600 text-white py-2 rounded"
+    <div className="min-h-screen flex items-center justify-center  p-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-xl p-8 flex flex-col gap-6"
       >
-        {loading ? "Creating..." : "Create Blog"}
-      </button>
-    </form>
+        <h2 className="text-2xl font-bold text-white text-center">Create a New Blog</h2>
+
+        <div className="flex flex-col items-center gap-2">
+          <label className="w-full flex flex-col items-center px-4 py-6 bg-gray-700 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
+            <span className="text-gray-400">Upload Thumbnail</span>
+            <input type="file" accept="image/*" className="hidden" onChange={handleFileChange} />
+          </label>
+          {preview && (
+            <img
+              src={preview}
+              alt="thumbnail preview"
+              className="w-40 h-40 object-cover rounded-md border border-gray-600 mt-2"
+            />
+          )}
+        </div>
+
+       
+        {error && <p className="text-red-400 text-center">{error}</p>}
+
+       
+        <input
+          type="text"
+          name="title"
+          placeholder="Blog Title"
+          value={formData.title}
+          onChange={handleChange}
+          className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+       
+        <textarea
+          name="content"
+          placeholder="Blog Content"
+          value={formData.content}
+          onChange={handleChange}
+          rows={6}
+          className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        />
+
+       
+        <input
+          type="text"
+          name="category"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+          className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <button
+          type="submit"
+          disabled={loading}
+          className={`w-full py-3 rounded-lg font-semibold transition-colors ${
+            loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-500"
+          } text-white`}
+        >
+          {loading ? "Creating..." : "Create Blog"}
+        </button>
+      </form>
+    </div>
   );
 }

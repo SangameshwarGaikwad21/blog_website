@@ -3,23 +3,33 @@ import { Link } from "react-router-dom";
 export default function BlogCard({ blog }) {
   return (
     <Link to={`/blog/${blog._id}`}>
-      <div 
-      className="border bg-gray-800 text-white rounded shadow p-4 px-6 hover:scale-105 duration-300  
-      cursor-pointer">
+      <div className="bg-gray-800 text-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer flex flex-col">
+        
+        
         {blog.thumbnail && (
-            <img className="mb-4"
+          <div className="w-full h-48 overflow-hidden">
+            <img
               src={blog.thumbnail}
               alt={blog.title}
-              style={{ width: "100%", marginTop: "10px" }}
+              className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
             />
-          )}
+          </div>
+        )}
+
       
-        <h2 className="text-lg font-bold mb-4">{blog.title}</h2>
-        <p className="mb-4">{blog.content}</p>
-        <p>{blog.category}</p>
+        <div className="p-5 flex flex-col gap-3">
+          <h2 className="text-xl font-bold truncate">{blog.title}</h2>
 
-        <p>{}</p>
+         
+          <span className="inline-block text-blue-500 text-1xl px-2 py-1 rounded-full">
+            {blog.category}
+          </span>
 
+       
+          <p className="text-gray-300 line-clamp-3">
+            {blog.content}
+          </p>
+        </div>
       </div>
     </Link>
   );

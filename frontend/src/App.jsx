@@ -5,6 +5,7 @@ import CreateBlog from './pages/CreateBlog'
 import RegisterUser from './Components/auth/RegisterUser'
 import LoginForm from './Components/auth/LoginForm'
 import BlogSingleDetails from './Components/blog/BlogSingleDetails'
+import UserProfile from './Components/auth/UserProfile'
 
 
 function App() {
@@ -14,8 +15,11 @@ function App() {
       <Route path='/' element={<RegisterUser/>}/>
       <Route path="/home" element={<Home/>}/> 
       <Route path="/blog/:postId" element={<BlogSingleDetails />} />
-      <Route path="/createblog" element={<CreateBlog/>}/>
+      <Route path="/create-blog" element={<CreateBlog/>}/>
       <Route path='/login' element={<LoginForm/>}/>
+
+
+      <Route path='/profile' element={<UserProfile/>}/>
     </Routes>
   )
 }
