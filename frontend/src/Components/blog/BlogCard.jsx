@@ -27,7 +27,7 @@ export default function BlogCard({ blog }) {
 
        
           <p className="text-gray-300 line-clamp-3">
-            {blog.content}
+            {blog.context}
           </p>
         </div>
       </div>

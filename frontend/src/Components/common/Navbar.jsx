@@ -20,7 +20,7 @@ function Navbar() {
       <div className="flex items-center gap-3 md:gap-4 mt-2 md:mt-0">
         {/* Create Blog */}
         <button
-          onClick={() => navigate("/create-blog")}
+          onClick={() => navigate("/createblog")}
           className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg transition-all shadow hover:shadow-md"
         >
           <PlusCircle size={18} />
