@@ -8,7 +8,6 @@ export const registerUser = async (data) => {
 
 export const loginUser=async(data)=>{
   const res=await axiosInstance.post("/users/login",data)
-  console.log("dataa",res)
   return res.data;
 }
 
@@ -58,3 +57,8 @@ export const toggleLike = async (postId) => {
   return res.data.data;
 };
 
+export const getAllUser=async(data)=>{
+  const res=await axiosInstance.get("/users",data)
+  console.log("get all the users",res)
+  return res.data;
+}

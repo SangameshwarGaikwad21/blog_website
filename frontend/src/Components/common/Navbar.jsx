@@ -26,13 +26,12 @@ function Navbar() {
          
           <button
             onClick={() => navigate("/createblog")}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg
-                       bg-blue-600 hover:bg-blue-500 transition-all
-                       shadow-md hover:shadow-lg hover:shadow-blue-500/50
-                       text-white font-medium"
-          >
-            <PlusCircle size={18} />
-            <span className="hidden sm:inline">Create Blog</span>
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500
+              hover:opacity-90 transition-all shadow-md hover:shadow-lg text-white font-medium">  
+              <PlusCircle size={18} />
+          <span className="hidden sm:inline">
+            Create Blog
+          </span>
           </button>
 
           
@@ -48,8 +47,6 @@ function Navbar() {
               <span>Dashboard</span>
             </Link>
           )}
-
-          
           <button
             onClick={() => navigate("/profile")}
             className="flex items-center gap-2 px-4 py-2 rounded-full

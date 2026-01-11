@@ -29,3 +29,14 @@ export const updateBlog=async()=>{
     console.logg("Update Blog Error",error)
   }
 }
+
+
+export const getAllBlog=async()=>{
+  try {
+    const res=await axiosInstance.get("/posts")
+    return res.data;
+  } 
+  catch (error) {
+      console.log("Not getting the data from frontend",error)
+  }
+}

@@ -58,7 +58,6 @@ export default function CreateBlog({ onNewBlog }) {
       <form className="w-full max-w-lg bg-gray-800 rounded-2xl shadow-xl p-8 flex flex-col gap-6" onSubmit={handleSubmit}>
         <h2 className="text-2xl font-bold text-white text-center">Create a New Blog</h2>
 
-        {/* Thumbnail Upload */}
         <div className="flex flex-col items-center gap-2">
           <label className="w-full flex flex-col items-center px-4 py-6 bg-gray-700 border-2 border-dashed border-gray-600 rounded-lg cursor-pointer hover:border-blue-500 transition-colors">
             <span className="text-gray-400">Upload Thumbnail</span>
@@ -73,10 +72,9 @@ export default function CreateBlog({ onNewBlog }) {
           )}
         </div>
 
-        {/* Error Message */}
+        
         {error && <p className="text-red-400 text-center">{error}</p>}
 
-        {/* Blog Title */}
         <input
           type="text"
           name="title"
@@ -86,7 +84,6 @@ export default function CreateBlog({ onNewBlog }) {
           className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Blog Context */}
         <textarea
           name="context"
           placeholder="Blog Content"
@@ -96,7 +93,7 @@ export default function CreateBlog({ onNewBlog }) {
           className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
         />
 
-        {/* Category */}
+      
         <input
           type="text"
           name="category"
@@ -106,7 +103,6 @@ export default function CreateBlog({ onNewBlog }) {
           className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
 
-        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
