@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createBlog } from "../services/blogService";
+import toast from "react-hot-toast";
 
 export default function CreateBlog({ onNewBlog }) {
   const [formData, setFormData] = useState({
@@ -46,6 +47,7 @@ export default function CreateBlog({ onNewBlog }) {
       if (onNewBlog && newBlog?.blog) onNewBlog(newBlog.blog);
       setFormData({ title: "", context: "", category: "", thumbnail: null });
       setPreview(null);
+      toast("blog was created")
     } catch (err) {
       setError(err?.response?.data?.message || err?.message || "Something went wrong");
     } finally {
