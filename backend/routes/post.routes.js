@@ -8,7 +8,7 @@ router.route("/").get(getAllPost);
 router.route("/:postId").get(getSinglePost);
 
 router.route("/createPost")
-  .post(VerifyJWT, isAdmin, upload.single("thumbnail"), createPost);
+  .post(VerifyJWT, upload.single("thumbnail"), createPost);
 
 router.route("/:postId")
   .patch(VerifyJWT, isAdmin, updatePost)
