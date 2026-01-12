@@ -1,22 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toggleLike } from "../../services/authService";
-import {getSingleBlog} from "../../services/blogService"
+import { getSingleBlog } from "../../services/blogService";
+import CommentSection from "../comments/CommentsSection";
 
 export default function BlogSingleDetails() {
   const { postId } = useParams();
+
   const [blog, setBlog] = useState(null);
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     const fetchBlog = async () => {
-      const res = await getSingleBlog(postId);
-      setBlog(res);
-      setLikesCount(res.likes.length);
-      setLoading(false);
+      try {
+        const res = await getSingleBlog(postId);
+        const data = res.data?.data || res;
+
+        setBlog(data);
+        setLikesCount(data.likes?.length || 0);
+        setLiked(data.isLiked || false); // 🔥 IMPORTANT
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
+
     fetchBlog();
   }, [postId]);
 
@@ -30,7 +43,8 @@ export default function BlogSingleDetails() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="text-center">Loading...</p>;
+  if (!blog) return <p className="text-center">Blog not found</p>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -52,15 +66,23 @@ export default function BlogSingleDetails() {
         </span>
       </div>
 
-      <img
-        src={blog.thumbnail}
-        alt={blog.title}
-        className="rounded-lg mb-6"
-      />
+      {blog.thumbnail && (
+        <img
+          src={blog.thumbnail}
+          alt={blog.title}
+          className="rounded-lg mb-6 w-full"
+        />
+      )}
 
-      <p className="text-gray-700 text-lg leading-relaxed">
+      <p className="text-gray-700 text-lg leading-relaxed mb-10">
         {blog.context}
       </p>
+
+      {/* 🔥 COMMENTS SECTION */}
+      <CommentSection
+        blogId={blog._id}
+        currentUser={user}
+      />
     </div>
   );
 }
