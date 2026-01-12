@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import { getAllUser } from "../../services/authService";
-import { getAllBlog } from "../../services/blogService";
+import { getAllBlog,deleteBlog } from "../../services/blogService";
+import { Link } from "react-router-dom";
+
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const token = localStorage.getItem("accessToken");
 
 
   useEffect(() => {
@@ -24,6 +26,26 @@ const Dashboard = () => {
     };
     fetchData();
   }, []);
+
+  const handleDeleteBlog = async (blogId) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
+  if (!confirmDelete) return;
+
+  try {
+    await deleteBlog(blogId, token);
+
+    // Remove blog from UI without re-fetching
+    setBlogs((prevBlogs) =>
+      prevBlogs.filter((blog) => blog._id !== blogId)
+    );
+  } catch (error) {
+    console.error("Failed to delete blog", error);
+    alert("Error deleting blog");
+  }
+};
+
+
+
 
   if (loading) return <p className="text-center mt-20 text-lg font-semibold">Loading...</p>;
 
@@ -60,7 +82,7 @@ const Dashboard = () => {
           </div>
         </section>
 
-        {/* All Users Table */}
+
         <section id="users" className="mb-12">
           <h2 className="text-2xl font-bold text-indigo-600 mb-4">All Users</h2>
           <div className="overflow-x-auto shadow-lg rounded-lg">
@@ -120,8 +142,21 @@ const Dashboard = () => {
                     <td className="p-3">{new Date(blog.createdAt).toLocaleDateString()}</td>
                     <td className="p-3">{new Date(blog.updatedAt).toLocaleDateString()}</td>
                     <td className="p-3 space-x-2">
-                      <button className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">Edit</button>
-                      <button className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors">Delete</button>
+                       <button>
+                         <Link
+                        to={`/admin/update-blog/${blog._id}`}
+                        className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+                      >
+                        Edit
+                      </Link>
+                       </button>
+
+                      <button
+                        onClick={() => handleDeleteBlog(blog._id)}
+                        className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

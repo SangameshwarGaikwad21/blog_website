@@ -20,17 +20,6 @@ export const getSingleBlog = async (postId) => {
 };
 
 
-export const updateBlog=async()=>{
-  try {
-    const res=await axiosInstance.patch(`/posts/${postId}`)
-    return res.data.data;
-  } 
-  catch (error) {
-    console.logg("Update Blog Error",error)
-  }
-}
-
-
 export const getAllBlog=async()=>{
   try {
     const res=await axiosInstance.get("/posts")
@@ -40,3 +29,18 @@ export const getAllBlog=async()=>{
       console.log("Not getting the data from frontend",error)
   }
 }
+
+
+export const deleteBlog = async(postId, token) =>
+  await axiosInstance.delete(`/posts/${postId}`, {
+    headers: { Authorization: `Bearer ${token}` },
+});
+
+
+export const getBlogById = async(id) =>
+  await axiosInstance.get(`/posts/${id}`);
+
+export const updateBlog = async(id, data, token) =>
+  await axiosInstance.patch(`/posts/${id}`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });

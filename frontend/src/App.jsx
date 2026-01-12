@@ -11,6 +11,7 @@ import ChangeAvatar from './Components/auth/ChangeAvatar'
 
 import AdminRoutes from './Components/admin/AdminRoutes'
 import Dashboard from './Components/admin/Dashboard'
+import UpdateBlog from './Components/admin/UpdateBlog'
 
 function App() {
 
@@ -28,10 +29,17 @@ function App() {
 
       <Route path="/blog/:postId" element={<BlogSingleDetails />} />
       <Route path="/createblog" element={<CreateBlog/>}/>
+  
 
       <Route path="/dashboard" element={<AdminRoutes />}>
-    <Route index element={<Dashboard />} />
-  </Route>
+          <Route index element={<Dashboard />} />
+      </Route>
+
+
+      <Route
+  path="/admin/update-blog/:id"
+  element={<UpdateBlog />}
+/>
     </Routes>
   )
 }

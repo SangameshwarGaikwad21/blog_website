@@ -11,7 +11,7 @@ router.route("/createPost")
   .post(VerifyJWT, upload.single("thumbnail"), createPost);
 
 router.route("/:postId")
-  .patch(VerifyJWT, isAdmin, updatePost)
-  .delete(VerifyJWT, isAdmin, deletePost);
+  .patch(VerifyJWT,updatePost)
+  .delete(VerifyJWT,deletePost);
 
 export default router
