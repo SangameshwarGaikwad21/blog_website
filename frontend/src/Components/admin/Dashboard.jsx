@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAllUser } from "../../services/authService";
 import { getAllBlog, deleteBlog } from "../../services/blogService";
 import { Link } from "react-router-dom";
@@ -123,7 +123,7 @@ const Dashboard = () => {
           </h2>
 
           <div className="overflow-x-auto bg-white rounded-lg shadow">
-            <table className="min-w-[900px] w-full">
+            <table className="min-w-900px w-full">
               <thead className="bg-purple-100 text-purple-700">
                 <tr>
                   <th className="p-3">Title</th>
@@ -174,7 +174,6 @@ const Dashboard = () => {
             </table>
           </div>
         </section>
-
       </main>
     </div>
   );
