@@ -11,8 +11,10 @@ const app=express()
 config()
 
 app.use(cors({
-    origin:["http://localhost:5173","https://personal-blog-rho-navy.vercel.app"],
-    credentials:true
+    origin:[
+      "http://localhost:5173",
+      "https://personal-blog-rho-navy.vercel.app"],
+      credentials:true
 }))
 
 
@@ -22,7 +24,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 app.get("/", (req, res) => {
-  res.send("API v1 is running 🚀");
+  res.send("Backned running 🚀");
 });
 
 app.use("/api/v1/users",userRouter)
