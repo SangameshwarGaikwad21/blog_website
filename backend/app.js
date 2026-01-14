@@ -11,7 +11,7 @@ const app=express()
 config()
 
 app.use(cors({
-    origin:process.env.FRONTEND_URL,
+    origin:"https://personal-blog-rho-navy.vercel.app",
     credentials:true
 }))
 
