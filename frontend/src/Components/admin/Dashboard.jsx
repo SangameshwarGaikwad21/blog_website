@@ -82,7 +82,7 @@ const Dashboard = () => {
           </h2>
 
           <div className="overflow-x-auto bg-white rounded-lg shadow">
-            <table className="min-w-[700px] w-full">
+            <table className="min-w-700px w-full">
               <thead className="bg-indigo-100 text-indigo-700">
                 <tr>
                   <th className="p-3 text-left">Name</th>

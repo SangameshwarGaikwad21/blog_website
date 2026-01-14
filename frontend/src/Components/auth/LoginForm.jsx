@@ -26,9 +26,7 @@ export default function LoginForm() {
     setLoading(true);
 
     const response = await loginUser(formData);
-    console.log("LOGIN RESPONSE:", response);
-
-   
+  
     const { user, accessToken, refreshToken } = response.data;
 
 
