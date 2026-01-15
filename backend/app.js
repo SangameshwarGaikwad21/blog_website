@@ -20,12 +20,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"]
 };
 
-app.use(cors(corsOptions));
-
-// 👇 VERY IMPORTANT for Render + Vercel
-app.options("*", cors(corsOptions));
-
-
+app.use(cors(corsOptions))
 app.use(express.json({limit: "16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
