@@ -1,30 +1,35 @@
-import express from "express";
-import cors from "cors";
-import cookieParser from "cookie-parser";
+import express from "express"
 import { config } from "dotenv";
+import cors from "cors"
+import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.routes.js"
+import postRouer from "./routes/post.routes.js"
+import commentsRouter from "./routes/comments.routes.js"
 
-config();
+const app=express()
 
-const app = express();
+config()
 
-app.use(
-  cors({
-    origin: [
-     "https://my-personal-gamma.vercel.app"
-    ],
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    ""
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(cookieParser());
+// 👇 VERY IMPORTANT for Render + Vercel
+app.options("*", cors(corsOptions));
 
 
 app.use(express.json({limit: "16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
+app.use(cookieParser())
 
 app.get("/", (req, res) => {
   res.send("Backned running 🚀");
