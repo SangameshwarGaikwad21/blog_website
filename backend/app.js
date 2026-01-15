@@ -13,7 +13,7 @@ config()
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://sangameshwar-blog.vercel.app"
+    ""
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -31,7 +31,7 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   res.send("Backned running 🚀");
 });
 
