@@ -1,10 +1,7 @@
 import axios from "axios";
-import dotenv from "dotenv";
-
-dotenv.config();
 
 const axiosInstance = axios.create({
-  baseURL:process.env.VITE_URL,
+  baseURL: "https://bloggs-01wb.onrender.com/api/v1",
   withCredentials: true,
 });
 export default axiosInstance;
