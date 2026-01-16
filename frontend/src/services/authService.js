@@ -1,7 +1,7 @@
 import axiosInstance from "./axios";
 
 export const registerUser = async (data) => {
-  const res = await axiosInstance.post("/users/register", data);
+  const res = await post("https://bloggs-01wb.onrender.com/api/v1/users/register", data);
   return res.data;
 };
 
