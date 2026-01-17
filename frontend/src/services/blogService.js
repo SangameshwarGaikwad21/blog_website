@@ -29,9 +29,9 @@ export const getSingleBlog = async (postId) => {
 };
 
 
-export const getAllBlog=async()=>{
+export const getAllBlog=async(data)=>{
   try {
-    const res=await axiosInstance.get("/posts")
+    const res=await axiosInstance.get("/posts",data)
     return res.data;
   } 
   catch (error) {
