@@ -43,7 +43,7 @@ export default function BlogList() {
 
   return (
     <>
-      <div className="flex gap-4 mb-6 text-center justify-center">
+      <div className="flex flex-wrap justify-center gap-3 mb-10">
         {["All", "IT", "CAR","Technology"].map((cat) => (
           <button
             key={cat}
@@ -59,7 +59,7 @@ export default function BlogList() {
         ))}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-3 gap-6 mb-5">
         {filteredBlogs?.map((blog) => (
           <BlogCard key={blog._id} blog={blog} />
         ))}

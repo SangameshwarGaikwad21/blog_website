@@ -1,6 +1,7 @@
 import Navbar from "../Components/common/Navbar"
 import Header from "../Components/common/Header"
 import BlogList from "../Components/blog/BlogList"
+import Footer from "./Footer"
 
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
         <Navbar/>
         <Header/>
         <BlogList/> 
+        <Footer/>
     </>
   )
 }
