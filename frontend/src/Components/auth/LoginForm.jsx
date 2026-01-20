@@ -18,7 +18,7 @@ export default function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-    const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   setError("");
 
@@ -26,16 +26,18 @@ export default function LoginForm() {
     setLoading(true);
 
     const response = await loginUser(formData);
-  
+
+    // ✅ CORRECT RESPONSE PATH
     const { user, accessToken, refreshToken } = response.data;
 
-
+    // ✅ SAVE AUTH DATA
     localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("accessToken", accessToken);
+    localStorage.setItem("token", accessToken);
     localStorage.setItem("refreshToken", refreshToken);
 
     toast.success("Login successful!");
 
+    // ✅ ROLE-BASED REDIRECT
     if (user.role === "admin") {
       navigate("/home", { replace: true });
     } else {

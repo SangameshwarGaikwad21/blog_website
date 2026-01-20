@@ -52,9 +52,10 @@ export default function RegisterUser() {
     data.append("avatar", formData.avatar);
 
     try {
-      setLoading(true);
-      await registerUser(data);
-      navigate("/home");
+    await registerUser(data);
+    localStorage.clear();
+    navigate("/login");
+
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
