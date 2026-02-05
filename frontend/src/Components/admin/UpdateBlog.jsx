@@ -34,7 +34,7 @@ const UpdateBlog = () => {
     try {
       await updateBlog(id, { title, context, category }, token);
       alert("Blog updated successfully");
-      navigate("/dashboard");
+      navigate("/home");
     } catch (error) {
       console.error(error);
       alert("Failed to update blog");
@@ -96,7 +96,7 @@ const UpdateBlog = () => {
 
             <button
               type="button"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/home")}
               className="px-6 py-3 bg-gray-300 rounded-lg hover:bg-gray-400"
             >
               Cancel
