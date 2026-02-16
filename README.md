@@ -54,7 +54,7 @@ This project is built to simulate a **real-world production application**, focus
 <img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/43086e07-cdb7-484d-a679-e04b2ef49638" />
 
 ## Update Blogs
-<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/412a1fde-9f61-45c9-b7e0-66e4e7b84dea" />
+<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/15316dc7-2b8e-4f27-9e74-3b185e0e686b" />
 
 ## Admin Panel
 <img width="900" height="900" alt="Screenshot 2026-02-17 010243" src="https://github.com/user-attachments/assets/80ebabb2-8566-4273-b535-0b0bd88c6e56" />
