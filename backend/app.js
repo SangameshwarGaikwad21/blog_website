@@ -13,7 +13,7 @@ config()
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://blogwebsite-eta-green.vercel.app"
+    "https://blogcommunity.vercel.app"
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
