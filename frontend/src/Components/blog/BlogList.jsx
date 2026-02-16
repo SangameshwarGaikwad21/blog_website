@@ -11,7 +11,7 @@ export default function BlogList() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("https://bloggs-01wb.onrender.com/api/v1/posts");
+        const response = await axios.get("https://blog-website-03ql.onrender.com/api/v1/posts");
 
         const posts = response.data.posts || response.data.data || [];
 
