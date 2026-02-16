@@ -56,228 +56,208 @@ export default function CreateBlog({ onNewBlog }) {
   };
 
   return (
-   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8">
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
 
-  {/* Card */}
-  <form
-    onSubmit={handleSubmit}
-    className="
-      w-full 
-      max-w-2xl 
-      backdrop-blur-xl 
-      bg-white/10 
-      border border-white/20 
-      shadow-2xl 
-      rounded-3xl 
-      p-6 
-      sm:p-8 
-      md:p-10 
-      flex flex-col 
-      gap-6
-    "
-  >
+    {/* Card */}
+    <form
+      onSubmit={handleSubmit}
+      className="
+        w-full
+        max-w-xl
+        backdrop-blur-lg
+        bg-white/10
+        border border-white/20
+        shadow-2xl
+        rounded-2xl
+        p-5 sm:p-6
+        flex flex-col
+        gap-5
+      "
+    >
 
-    {/* Heading */}
-    <h2 className="
-      text-2xl 
-      sm:text-3xl 
-      font-extrabold 
-      text-center 
-      bg-gradient-to-r 
-      from-blue-400 
-      to-purple-400 
-      bg-clip-text 
-      text-transparent
-    ">
-      ✍️ Create New Blog
-    </h2>
+      {/* Heading */}
+      <h2 className="
+        text-xl sm:text-2xl
+        font-bold
+        text-center
+        bg-gradient-to-r
+        from-blue-400
+        to-purple-400
+        bg-clip-text
+        text-transparent
+      ">
+        ✍️ Create Blog
+      </h2>
 
-    {/* Thumbnail Upload */}
-    <div className="flex flex-col items-center gap-3">
+      {/* Thumbnail Upload */}
+      <div className="flex flex-col items-center gap-2">
 
-      <label
-        className="
-          w-full 
-          flex flex-col 
-          items-center 
-          justify-center 
-          px-4 
-          py-8 
-          sm:py-10 
-          bg-white/5 
-          border-2 
-          border-dashed 
-          border-gray-500 
-          rounded-2xl 
-          cursor-pointer 
-          hover:border-blue-400 
-          hover:bg-white/10 
-          transition
-        "
-      >
-        <span className="text-gray-300 text-base sm:text-lg">
-          📸 Upload Thumbnail
-        </span>
+        <label
+          className="
+            w-full
+            flex flex-col
+            items-center
+            justify-center
+            px-4 py-6
+            bg-white/5
+            border border-dashed border-gray-500
+            rounded-xl
+            cursor-pointer
+            hover:border-blue-400
+            hover:bg-white/10
+            transition
+          "
+        >
+          <span className="text-gray-300 text-sm">
+            📸 Upload Thumbnail
+          </span>
 
-        <span className="text-gray-500 text-xs sm:text-sm">
-          Click or drag image here
-        </span>
+          <span className="text-gray-500 text-xs">
+            Click to upload
+          </span>
+
+          <input
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+        </label>
+
+        {/* Preview */}
+        {preview && (
+          <img
+            src={preview}
+            alt="preview"
+            className="
+              w-28 h-28
+              object-cover
+              rounded-lg
+              border border-white/30
+              shadow-md
+            "
+          />
+        )}
+      </div>
+
+      {/* Error */}
+      {error && (
+        <p className="text-red-400 text-center text-sm">
+          {error}
+        </p>
+      )}
+
+      {/* Title */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Title
+        </label>
 
         <input
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={handleFileChange}
-        />
-      </label>
-
-      {/* Preview */}
-      {preview && (
-        <img
-          src={preview}
-          alt="preview"
+          type="text"
+          name="title"
+          placeholder="Enter blog title..."
+          value={formData.title}
+          onChange={handleChange}
           className="
-            w-32 h-32 
-            sm:w-40 sm:h-40 
-            md:w-44 md:h-44 
-            object-cover 
-            rounded-xl 
-            border-2 
-            border-white/30 
-            shadow-lg
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            text-sm
           "
         />
-      )}
-    </div>
+      </div>
 
-    {/* Error */}
-    {error && (
-      <p className="text-red-400 text-center text-sm sm:text-base">
-        {error}
-      </p>
-    )}
+      {/* Content */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Content
+        </label>
 
-    {/* Title */}
-    <div className="flex flex-col gap-2">
-      <label className="text-gray-300 font-semibold text-sm sm:text-base">
-        Blog Title
-      </label>
+        <textarea
+          name="context"
+          placeholder="Write your blog..."
+          value={formData.context}
+          onChange={handleChange}
+          rows={4}
+          className="
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-purple-500
+            resize-none
+            text-sm
+          "
+        />
+      </div>
 
-      <input
-        type="text"
-        name="title"
-        placeholder="Enter blog title..."
-        value={formData.title}
-        onChange={handleChange}
-        className="
-          w-full 
-          px-4 
-          py-2.5 
-          sm:py-3 
-          rounded-xl 
-          border 
-          border-gray-600 
-          bg-white/5 
-          text-white 
-          placeholder-gray-400 
-          focus:outline-none 
-          focus:ring-2 
-          focus:ring-blue-500 
-          transition
-        "
-      />
-    </div>
+      {/* Category */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Category
+        </label>
 
-    {/* Content */}
-    <div className="flex flex-col gap-2">
-      <label className="text-gray-300 font-semibold text-sm sm:text-base">
-        Blog Content
-      </label>
+        <input
+          type="text"
+          name="category"
+          placeholder="Technology, AI..."
+          value={formData.category}
+          onChange={handleChange}
+          className="
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-pink-500
+            text-sm
+          "
+        />
+      </div>
 
-      <textarea
-        name="context"
-        placeholder="Write your blog content..."
-        value={formData.context}
-        onChange={handleChange}
-        rows={5}
-        className="
-          w-full 
-          px-4 
-          py-2.5 
-          sm:py-3 
-          rounded-xl 
-          border 
-          border-gray-600 
-          bg-white/5 
-          text-white 
-          placeholder-gray-400 
-          focus:outline-none 
-          focus:ring-2 
-          focus:ring-purple-500 
-          resize-none 
-          transition
-        "
-      />
-    </div>
+      {/* Button */}
+      <button type="submit"
+  disabled={loading}
+  className={`
+    w-full
+    py-3
+    rounded-lg
+    font-semibold
+    text-white
+    text-base
+    shadow-lg
+    transition-all
+    duration-300
+    ${
+      loading
+        ? "bg-blue-400 cursor-not-allowed"
+        : "bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.03]"
+    }
+  `}
+>
+  {loading ? "Creating..." : "🚀 Create"}
+</button>
 
-    {/* Category */}
-    <div className="flex flex-col gap-2">
-      <label className="text-gray-300 font-semibold text-sm sm:text-base">
-        Category
-      </label>
 
-      <input
-        type="text"
-        name="category"
-        placeholder="Technology, AI, Coding..."
-        value={formData.category}
-        onChange={handleChange}
-        className="
-          w-full 
-          px-4 
-          py-2.5 
-          sm:py-3 
-          rounded-xl 
-          border 
-          border-gray-600 
-          bg-white/5 
-          text-white 
-          placeholder-gray-400 
-          focus:outline-none 
-          focus:ring-2 
-          focus:ring-pink-500 
-          transition
-        "
-      />
-    </div>
+    </form>
+  </div>
+);
 
-    {/* Button */}
-    <button
-      type="submit"
-      disabled={loading}
-      className={`
-        w-full 
-        py-2.5 
-        sm:py-3 
-        rounded-xl 
-        font-semibold 
-        text-white 
-        shadow-lg 
-        transition-all 
-        duration-300 
-        ${
-          loading
-            ? "bg-blue-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-blue-600 to-purple-600 hover:scale-[1.02]"
-        }
-      `}
-    >
-      {loading ? "Creating..." : "🚀 Create Blog"}
-    </button>
-
-  </form>
-</div>
- 
-
-  );
 }

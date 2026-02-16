@@ -45,82 +45,172 @@ const UpdateBlog = () => {
     return <p className="text-center mt-20">Loading...</p>;
   }
 
-  return (
-  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 p-6">
-    <div className="w-full max-w-3xl backdrop-blur-lg bg-white/70 shadow-2xl rounded-2xl p-10 border border-white/40">
-      
-      <h2 className="text-4xl font-extrabold text-center bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-8">
+ return (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4 py-8">
+
+    {/* Card */}
+    <form
+      onSubmit={handleSubmit}
+      className="
+        w-full
+        max-w-xl
+        backdrop-blur-lg
+        bg-white/10
+        border border-white/20
+        shadow-2xl
+        rounded-2xl
+        p-5 sm:p-6
+        flex flex-col
+        gap-5
+      "
+    >
+
+      {/* Heading */}
+      <h2 className="
+        text-xl sm:text-2xl
+        font-bold
+        text-center
+        bg-gradient-to-r
+        from-blue-400
+        to-purple-400
+        bg-clip-text
+        text-transparent
+      ">
         ✏️ Update Blog
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Title */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Blog Title
+        </label>
 
-        <div>
-          <label className="block mb-2 font-semibold text-gray-700">
-            Blog Title
-          </label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter blog title..."
-            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-            required
-          />
-        </div>
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter blog title..."
+          className="
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            text-sm
+          "
+          required
+        />
+      </div>
 
-       
-        <div>
-          <label className="block mb-2 font-semibold text-gray-700">
-            Blog Content
-          </label>
-          <textarea
-            rows="7"
-            value={context}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Write your blog content..."
-            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition resize-none"
-            required
-          />
-        </div>
+      {/* Content */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Blog Content
+        </label>
 
-      
-        <div>
-          <label className="block mb-2 font-semibold text-gray-700">
-            Category
-          </label>
-          <input
-            type="text"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            placeholder="Technology, AI, Coding..."
-            className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
-            required
-          />
-        </div>
+        <textarea
+          rows={4}
+          value={context}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Write your blog content..."
+          className="
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-purple-500
+            resize-none
+            text-sm
+          "
+          required
+        />
+      </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 pt-4">
-          
-          <button
-            type="submit"
-            className="flex-1 py-3 rounded-xl text-white font-semibold bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-lg transition duration-300"
-          >
-            🚀 Update Blog
-          </button>
+      {/* Category */}
+      <div className="flex flex-col gap-1">
+        <label className="text-gray-300 text-sm font-medium">
+          Category
+        </label>
 
-          <button
-            type="button"
-            onClick={() => navigate("/home")}
-            className="flex-1 py-3 rounded-xl font-semibold bg-gray-200 hover:bg-gray-300 transition"
-          >
-            Cancel
-          </button>
+        <input
+          type="text"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          placeholder="Technology, AI..."
+          className="
+            w-full
+            px-3 py-2
+            rounded-lg
+            border border-gray-600
+            bg-white/5
+            text-white
+            placeholder-gray-400
+            focus:outline-none
+            focus:ring-2
+            focus:ring-pink-500
+            text-sm
+          "
+          required
+        />
+      </div>
 
-        </div>
-      </form>
-    </div>
+      {/* Buttons */}
+      <div className="flex gap-3 pt-2">
+
+        <button
+          type="submit"
+          className="
+            flex-1
+            py-2.5
+            rounded-lg
+            font-semibold
+            text-white
+            text-sm
+            shadow-md
+            transition-all
+            duration-300
+            bg-gradient-to-r
+            from-blue-600
+            to-purple-600
+            hover:scale-[1.03]
+          "
+        >
+          🚀 Update Blog
+        </button>
+
+        <button
+          type="button"
+          onClick={() => navigate("/home")}
+          className="
+            flex-1
+            py-2.5
+            rounded-lg
+            font-semibold
+            text-sm
+            text-white
+            bg-gray-600 hover:bg-gray-700
+            transition
+          "
+        >
+          Cancel
+        </button>
+
+      </div>
+
+    </form>
   </div>
 );
+
 
 };
 
