@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { createBlog } from "../services/blogService";
-import toast from "react-hot-toast";
+import { useBlog } from "../context/blogContext";
 
 export default function CreateBlog({ onNewBlog }) {
+
+  const { handleCreateBlog, loading } = useBlog(); 
+
   const [formData, setFormData] = useState({
     title: "",
     context: "",
@@ -11,7 +13,6 @@ export default function CreateBlog({ onNewBlog }) {
   });
 
   const [preview, setPreview] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -30,7 +31,11 @@ export default function CreateBlog({ onNewBlog }) {
     e.preventDefault();
     setError("");
 
-    if (!formData.title.trim() || !formData.context.trim() || !formData.category.trim()) {
+    if (
+      !formData.title.trim() ||
+      !formData.context.trim() ||
+      !formData.category.trim()
+    ) {
       setError("Title, context, and category are required");
       return;
     }
@@ -39,19 +44,31 @@ export default function CreateBlog({ onNewBlog }) {
     data.append("title", formData.title);
     data.append("context", formData.context);
     data.append("category", formData.category);
-    if (formData.thumbnail) data.append("thumbnail", formData.thumbnail);
+    if (formData.thumbnail)
+      data.append("thumbnail", formData.thumbnail);
 
     try {
-      setLoading(true);
-      const newBlog = await createBlog(data);
-      if (onNewBlog && newBlog?.blog) onNewBlog(newBlog.blog);
-      setFormData({ title: "", context: "", category: "", thumbnail: null });
+      const res = await handleCreateBlog(data); 
+
+      if (onNewBlog && res?.blog) {
+        onNewBlog(res.blog);
+      }
+
+      setFormData({
+        title: "",
+        context: "",
+        category: "",
+        thumbnail: null,
+      });
+
       setPreview(null);
-      toast("blog was created")
+
     } catch (err) {
-      setError(err?.response?.data?.message || err?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+      setError(
+        err?.response?.data?.message ||
+        err?.message ||
+        "Something went wrong"
+      );
     }
   };
 
@@ -61,35 +78,23 @@ export default function CreateBlog({ onNewBlog }) {
     {/* Card */}
     <form
       onSubmit={handleSubmit}
-      className="
-        w-full
-        max-w-xl
-        backdrop-blur-lg
-        bg-white/10
-        border border-white/20
-        shadow-2xl
-        rounded-2xl
-        p-5 sm:p-6
-        flex flex-col
-        gap-5
+      className=" w-full max-w-xl backdrop-blur-lg bg-white/10 border border-white/20 shadow-2xl rounded-2xl
+        p-5 sm:p-6 flex flex-col gap-5
       "
     >
 
-      {/* Heading */}
+     
       <h2 className="
         text-xl sm:text-2xl
         font-bold
         text-center
         bg-gradient-to-r
-        from-blue-400
-        to-purple-400
-        bg-clip-text
-        text-transparent
+        from-blue-400 to-purple-400 bg-clip-text text-transparent
       ">
         ✍️ Create Blog
       </h2>
 
-      {/* Thumbnail Upload */}
+     
       <div className="flex flex-col items-center gap-2">
 
         <label
@@ -124,7 +129,7 @@ export default function CreateBlog({ onNewBlog }) {
           />
         </label>
 
-        {/* Preview */}
+       
         {preview && (
           <img
             src={preview}
@@ -140,14 +145,14 @@ export default function CreateBlog({ onNewBlog }) {
         )}
       </div>
 
-      {/* Error */}
+    
       {error && (
         <p className="text-red-400 text-center text-sm">
           {error}
         </p>
       )}
 
-      {/* Title */}
+     
       <div className="flex flex-col gap-1">
         <label className="text-gray-300 text-sm font-medium">
           Title
@@ -175,7 +180,7 @@ export default function CreateBlog({ onNewBlog }) {
         />
       </div>
 
-      {/* Content */}
+    
       <div className="flex flex-col gap-1">
         <label className="text-gray-300 text-sm font-medium">
           Content
@@ -204,7 +209,7 @@ export default function CreateBlog({ onNewBlog }) {
         />
       </div>
 
-      {/* Category */}
+     
       <div className="flex flex-col gap-1">
         <label className="text-gray-300 text-sm font-medium">
           Category
@@ -233,8 +238,7 @@ export default function CreateBlog({ onNewBlog }) {
       </div>
 
       {/* Button */}
-      <button type="submit"
-  disabled={loading}
+      <button type="submit"  disabled={loading}
   className={`
     w-full
     py-3
@@ -253,9 +257,7 @@ export default function CreateBlog({ onNewBlog }) {
   `}
 >
   {loading ? "Creating..." : "🚀 Create"}
-</button>
-
-
+  </button>
     </form>
   </div>
 );

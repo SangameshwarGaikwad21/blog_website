@@ -61,14 +61,3 @@ This project is built to simulate a **real-world production application**, focus
 
 ## Admin Can see the user and Blogs and Updated and delete
 <img width="900" height="900" alt="Screenshot 2026-02-17 010254" src="https://github.com/user-attachments/assets/684b0930-92a4-4865-ab76-4a3f4d0dac68" />
-
-
-
-
-
-
-
-
-
-
-
