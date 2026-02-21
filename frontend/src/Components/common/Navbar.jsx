@@ -7,6 +7,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -18,18 +19,22 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 
         {/* Logo */}
-        <div
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/home")}
           className="text-2xl font-extrabold tracking-wide cursor-pointer 
           bg-gradient-to-r from-blue-400 to-purple-500 
           bg-clip-text text-transparent"
         >
           Blog_App
-        </div>
+        </motion.div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-3">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/createblog")}
             className="flex items-center gap-2 px-4 py-2 rounded-lg
               bg-gradient-to-r from-purple-500 to-blue-500
@@ -37,21 +42,25 @@ function Navbar() {
           >
             <PlusCircle size={18} />
             Create Blog
-          </button>
+          </motion.button>
 
           {user?.role === "admin" && (
-            <Link
-              to="/dashboard"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg
+            <motion.div whileHover={{ scale: 1.05 }}>
+              <Link
+                to="/dashboard"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg
                 bg-gradient-to-r from-purple-500 to-blue-500
                 hover:opacity-90 transition-all shadow-md text-white"
-            >
-              <LayoutDashboard size={18} />
-              Dashboard
-            </Link>
+              >
+                <LayoutDashboard size={18} />
+                Dashboard
+              </Link>
+            </motion.div>
           )}
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/profile")}
             className="flex items-center gap-2 px-4 py-2 rounded-full
               bg-gray-100 hover:bg-gray-200 transition-all shadow-sm
@@ -59,60 +68,73 @@ function Navbar() {
           >
             <User size={18} />
             Profile
-          </button>
+          </motion.button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button
+        <motion.button
+          whileTap={{ scale: 0.9 }}
           onClick={() => setOpen(!open)}
           className="md:hidden text-white"
         >
           {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        </motion.button>
       </div>
 
-      {/* Mobile Dropdown */}
-      {open && (
-        <div className="md:hidden bg-gray-900/95 border-t border-gray-800 px-6 py-4 space-y-4">
-          <button
-            onClick={() => {
-              navigate("/createblog");
-              setOpen(false);
-            }}
-            className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
+      {/* Mobile Dropdown with Animation */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-gray-900/95 border-t border-gray-800 px-6 py-4 space-y-4"
+          >
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              onClick={() => {
+                navigate("/createblog");
+                setOpen(false);
+              }}
+              className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
               bg-gradient-to-r from-purple-500 to-blue-500
               text-white"
-          >
-            <PlusCircle size={18} />
-            Create Blog
-          </button>
-
-          {user?.role === "admin" && (
-            <Link
-              to="/dashboard"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg
-                bg-gradient-to-r from-purple-500 to-blue-500
-                text-white"
             >
-              <LayoutDashboard size={18} />
-              Dashboard
-            </Link>
-          )}
+              <PlusCircle size={18} />
+              Create Blog
+            </motion.button>
 
-          <button
-            onClick={() => {
-              navigate("/profile");
-              setOpen(false);
-            }}
-            className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
+            {user?.role === "admin" && (
+              <motion.div whileHover={{ scale: 1.03 }}>
+                <Link
+                  to="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg
+                  bg-gradient-to-r from-purple-500 to-blue-500
+                  text-white"
+                >
+                  <LayoutDashboard size={18} />
+                  Dashboard
+                </Link>
+              </motion.div>
+            )}
+
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              onClick={() => {
+                navigate("/profile");
+                setOpen(false);
+              }}
+              className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
               bg-gray-100 text-gray-900"
-          >
-            <User size={18} />
-            Profile
-          </button>
-        </div>
-      )}
+            >
+              <User size={18} />
+              Profile
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }
