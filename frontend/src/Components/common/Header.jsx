@@ -7,7 +7,7 @@ function Header() {
       
       <div className="mx-6 sm:mx-16 xl:mx-24 text-center">
 
-        {/* Animated Heading */}
+     
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -15,20 +15,20 @@ function Header() {
           className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-gray-800 leading-snug"
         >
           Your Own{" "}
-          <span className="text-blue-600">
+          <span className="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             <Typewriter
-              words={["Blogging"]}
-              loop={1}
-              cursor={false}   // removed cursor line
-              typeSpeed={60}
-              deleteSpeed={40}
-              delaySpeed={500}
+              words={["Blogging", "Space", "Through"]}
+              loop={0}          
+              cursor={false}
+              typeSpeed={90}
+              deleteSpeed={90}
+              delaySpeed={1000}
             />
           </span>{" "}
           Platform
         </motion.h1>
 
-        {/* Animated Paragraph */}
+       
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -39,7 +39,7 @@ function Header() {
           One word or a thousand, your story starts right here.
         </motion.p>
 
-        {/* Animated Search Box */}
+       
         <motion.form
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
