@@ -43,21 +43,7 @@ export default function BlogList() {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center gap-3 mb-10">
-        {["All", "IT", "CAR","Technology"].map((cat) => (
-          <button
-            key={cat}
-            onClick={() => filterByCategory(cat)}
-            className={`px-4 py-2 rounded ${
-              activeCategory === cat
-                ? "bg-blue-800 text-white hover:bg-blue-700"
-                : "bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+      
 
       <div className="grid grid-cols-3 gap-6 mb-5">
         {filteredBlogs?.map((blog) => (

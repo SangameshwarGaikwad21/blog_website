@@ -15,42 +15,49 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full backdrop-blur-md bg-gray-900/90 border-b border-gray-800 shadow-md">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <nav className="sticky top-0 z-50 w-full 
+    backdrop-blur-xl bg-gray-900/70 border-b border-white/10">
+
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         {/* Logo */}
         <motion.div
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => navigate("/home")}
           className="text-2xl font-extrabold tracking-wide cursor-pointer 
-          bg-gradient-to-r from-blue-400 to-purple-500 
+          bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500
           bg-clip-text text-transparent"
         >
           Blog_App
         </motion.div>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-4">
+
+          {/* Create Blog */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/createblog")}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg
-              bg-gradient-to-r from-purple-500 to-blue-500
-              hover:opacity-90 transition-all shadow-md text-white"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl
+            bg-gradient-to-r from-purple-500 to-blue-500
+            hover:shadow-lg hover:shadow-purple-500/30
+            transition-all text-white"
           >
             <PlusCircle size={18} />
             Create Blog
           </motion.button>
 
+          {/* Dashboard */}
           {user?.role === "admin" && (
             <motion.div whileHover={{ scale: 1.05 }}>
               <Link
                 to="/dashboard"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg
-                bg-gradient-to-r from-purple-500 to-blue-500
-                hover:opacity-90 transition-all shadow-md text-white"
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl
+                bg-gradient-to-r from-indigo-500 to-purple-500
+                hover:shadow-lg hover:shadow-indigo-500/30
+                transition-all text-white"
               >
                 <LayoutDashboard size={18} />
                 Dashboard
@@ -58,17 +65,19 @@ function Navbar() {
             </motion.div>
           )}
 
+          {/* Profile */}
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/profile")}
-            className="flex items-center gap-2 px-4 py-2 rounded-full
-              bg-gray-100 hover:bg-gray-200 transition-all shadow-sm
-              text-gray-900"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full
+            bg-white/90 hover:bg-white
+            text-gray-900 font-medium shadow-md transition-all"
           >
             <User size={18} />
             Profile
           </motion.button>
+
         </div>
 
         {/* Mobile Menu Button */}
@@ -77,42 +86,43 @@ function Navbar() {
           onClick={() => setOpen(!open)}
           className="md:hidden text-white"
         >
-          {open ? <X size={26} /> : <Menu size={26} />}
+          {open ? <X size={28} /> : <Menu size={28} />}
         </motion.button>
       </div>
 
-      {/* Mobile Dropdown with Animation */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -25 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-gray-900/95 border-t border-gray-800 px-6 py-4 space-y-4"
+            exit={{ opacity: 0, y: -25 }}
+            transition={{ duration: 0.25 }}
+            className="md:hidden bg-gray-900/95 border-t border-white/10 px-6 py-6 space-y-4"
           >
+
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.04 }}
               onClick={() => {
                 navigate("/createblog");
                 setOpen(false);
               }}
-              className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
+              className="flex items-center gap-2 w-full px-4 py-3 rounded-xl
               bg-gradient-to-r from-purple-500 to-blue-500
-              text-white"
+              text-white shadow-md"
             >
               <PlusCircle size={18} />
               Create Blog
             </motion.button>
 
             {user?.role === "admin" && (
-              <motion.div whileHover={{ scale: 1.03 }}>
+              <motion.div whileHover={{ scale: 1.04 }}>
                 <Link
                   to="/dashboard"
                   onClick={() => setOpen(false)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg
-                  bg-gradient-to-r from-purple-500 to-blue-500
-                  text-white"
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl
+                  bg-gradient-to-r from-indigo-500 to-purple-500
+                  text-white shadow-md"
                 >
                   <LayoutDashboard size={18} />
                   Dashboard
@@ -121,17 +131,18 @@ function Navbar() {
             )}
 
             <motion.button
-              whileHover={{ scale: 1.03 }}
+              whileHover={{ scale: 1.04 }}
               onClick={() => {
                 navigate("/profile");
                 setOpen(false);
               }}
-              className="flex items-center gap-2 w-full px-4 py-2 rounded-lg
-              bg-gray-100 text-gray-900"
+              className="flex items-center gap-2 w-full px-4 py-3 rounded-xl
+              bg-white text-gray-900 shadow-md"
             >
               <User size={18} />
               Profile
             </motion.button>
+
           </motion.div>
         )}
       </AnimatePresence>

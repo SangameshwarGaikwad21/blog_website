@@ -41,74 +41,99 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-        <div className="text-white text-center md:text-left space-y-4 px-4">
-          <h1 className="text-3xl sm:text-4xl font-bold">
+    <div className="min-h-screen flex items-center justify-center 
+    bg-slate-950 relative overflow-hidden px-4">
+
+      {/* Glow Background */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
+
+      <div className="relative w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+        {/* LEFT SIDE TEXT */}
+        <div className="text-white text-center md:text-left space-y-5 px-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold 
+          bg-gradient-to-r from-indigo-400 to-purple-500 
+          bg-clip-text text-transparent">
             Welcome Back 👋
           </h1>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg">
-            Login to your account and continue sharing and exploring amazing blogs.
+
+          <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+            Login to your account and continue sharing and exploring
+            amazing blogs from creators around the world.
           </p>
         </div>
 
-       
-        <div className="w-full max-w-md bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl mx-auto">
+        {/* LOGIN CARD */}
+        <div className="w-full max-w-md bg-slate-900/80 backdrop-blur-xl 
+        border border-slate-700 p-8 rounded-2xl shadow-2xl mx-auto">
+
           <h2 className="text-2xl font-bold text-center text-white mb-6">
-            Login
+            Login to your account
           </h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            
+          <form onSubmit={handleSubmit} className="space-y-5">
+
+            {/* USERNAME */}
             <input
               type="text"
               name="username"
               placeholder="Username or Email"
               value={formData.username}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-slate-800 
+              text-white border border-slate-700 
+              focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
 
-      
+            {/* PASSWORD */}
             <input
               type="password"
               name="password"
               placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-slate-800 
+              text-white border border-slate-700 
+              focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
+
             {error && (
               <p className="text-red-500 text-sm text-center">
                 {error}
               </p>
             )}
 
-           
+            {/* LOGIN BUTTON */}
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 rounded-lg font-semibold transition-all ${
-                loading
-                  ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
+              className={`w-full py-3 rounded-lg font-semibold 
+              transition-all duration-300 
+              bg-gradient-to-r from-indigo-500 to-purple-600 
+              hover:opacity-90 text-white ${
+                loading ? "opacity-60 cursor-not-allowed" : ""
               }`}
             >
-              {loading ? "Logging..." : "Login"}
+              {loading ? "Logging in..." : "Login"}
             </button>
 
+            {/* REGISTER LINK */}
             <p className="text-center text-sm text-gray-400 pt-2">
               Don’t have an account?{" "}
               <Link
                 to="/"
-                className="text-blue-400 hover:underline"
+                className="text-indigo-400 hover:underline"
               >
                 Register
               </Link>
             </p>
+
           </form>
         </div>
+
       </div>
     </div>
   );
 }
+

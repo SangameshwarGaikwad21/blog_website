@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { toggleLike } from "../../services/authService";
 import { getSingleBlog } from "../../services/blogService";
 import CommentSection from "../comments/CommentsSection";
-
+import { motion } from "framer-motion";
 
 export default function BlogSingleDetails() {
   const { postId } = useParams();
@@ -36,7 +36,7 @@ export default function BlogSingleDetails() {
   }, [postId]);
 
   const handleLike = async () => {
-    if (likeLoading) return; // 🔒 prevent double click
+    if (likeLoading) return;
 
     try {
       setLikeLoading(true);
@@ -53,58 +53,105 @@ export default function BlogSingleDetails() {
     }
   };
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (!blog) return <p className="text-center">Blog not found</p>;
+  if (loading)
+    return (
+      <div className="text-center py-20 text-gray-400">
+        Loading blog...
+      </div>
+    );
+
+  if (!blog)
+    return (
+      <div className="text-center py-20 text-gray-400">
+        Blog not found
+      </div>
+    );
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="max-w-4xl mx-auto px-5 py-12"
+    >
+
+      {/* TITLE */}
+      <motion.h1
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="text-4xl md:text-5xl font-extrabold mb-6 
+        leading-tight bg-gradient-to-r from-indigo-500 to-purple-500 
+        bg-clip-text text-transparent"
+      >
         {blog.title}
-      </h1>
+      </motion.h1>
 
       {/* LIKE SECTION */}
-      <div className="flex flex-wrap items-center gap-4 mb-8">
-        <button
+      <div className="flex items-center gap-4 mb-10">
+
+        <motion.button
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.08 }}
           onClick={handleLike}
           disabled={likeLoading}
           className={`
-            flex items-center gap-2 px-5 py-2 rounded-full font-medium
-            shadow-sm transition-all duration-300
-            ${liked
+          flex items-center gap-2 px-6 py-2 rounded-full font-medium
+          transition-all shadow-md
+          ${
+            liked
               ? "bg-red-500 text-white shadow-red-300"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"}
-            ${likeLoading ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}
+              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+          }
           `}
         >
           ❤️ {liked ? "Liked" : "Like"}
-        </button>
+        </motion.button>
 
-        <span className="text-gray-500 text-sm font-medium">
+        <span className="text-gray-500 text-sm">
           {likesCount} likes
         </span>
+
       </div>
 
       {/* IMAGE */}
       {blog.thumbnail && (
-        <div className="mb-8">
+        <motion.div
+          initial={{ scale: 0.95, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="mb-10 overflow-hidden rounded-xl shadow-xl"
+        >
           <img
             src={blog.thumbnail}
             alt={blog.title}
-            className="max-h-[450px] w-full object-cover rounded-xl shadow-md"
+            className="w-full max-h-[450px] object-cover hover:scale-105 transition duration-500"
           />
-        </div>
+        </motion.div>
       )}
 
       {/* CONTENT */}
-      <p className="text-gray-800 text-lg leading-relaxed mb-12 whitespace-pre-line">
-        {blog.context}
-      </p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="prose prose-lg max-w-none text-gray-800 mb-14"
+      >
+        <p className="whitespace-pre-line text-lg leading-relaxed">
+          {blog.context}
+        </p>
+      </motion.div>
 
       {/* COMMENTS */}
-      <div className="bg-white shadow-lg rounded-xl p-6 border">
-        <h2 className="text-xl font-semibold mb-4">💬 Comments</h2>
+      <motion.div
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="bg-white shadow-xl rounded-xl p-6 border"
+      >
+        <h2 className="text-xl font-semibold mb-5">
+          💬 Comments
+        </h2>
+
         <CommentSection blogId={blog._id} currentUser={user} />
-      </div>
-    </div>
+      </motion.div>
+
+    </motion.div>
   );
 }
+
