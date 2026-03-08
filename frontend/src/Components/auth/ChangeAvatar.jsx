@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProfile, updateProfile } from "../../services/authService";
+import { motion } from "framer-motion";
 
 export default function ChangeAvatar() {
   const [avatar, setAvatar] = useState(null);
@@ -38,36 +39,70 @@ export default function ChangeAvatar() {
   };
 
   return (
-    <div className="text-center justify-center max-w-md mx-auto mt-10 p-6 bg-white shadow rounded-lg">
-      <h2 className="text-xl font-semibold mb-4">Change Avatar</h2>
+    <div className="min-h-screen flex items-center justify-center 
+    bg-slate-950 relative overflow-hidden px-4">
 
-      {preview && (
-        <img
-          src={preview}
-          alt="avatar"
-          className="w-24 h-24 rounded-full mb-4 text-center mx-auto"
-        />
-      )}
+      {/* Glow background */}
+      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
+      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-        className="text-center justify-center"
-          type="file"
-          accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
-        />
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.4 }}
+        className="relative w-full max-w-md
+        bg-slate-900/80 backdrop-blur-xl
+        border border-slate-700
+        p-8 rounded-3xl shadow-2xl text-center"
+      >
 
-        <button
-          disabled={loading}
-          className="w-full bg-indigo-600 text-white py-2 rounded"
-        >
-          {loading ? "Uploading..." : "Update Avatar"}
-        </button>
+        <h2 className="text-2xl font-bold mb-6 
+        bg-gradient-to-r from-indigo-400 to-purple-500 
+        bg-clip-text text-transparent">
+          Change Avatar
+        </h2>
 
-        {message && (
-          <p className="text-center text-sm mt-2">{message}</p>
+        {preview && (
+          <img
+            src={preview}
+            alt="avatar"
+            className="w-28 h-28 rounded-full border-4 
+            border-indigo-500 object-cover 
+            mx-auto mb-6"
+          />
         )}
-      </form>
+
+        <form onSubmit={handleSubmit} className="space-y-5">
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setAvatar(e.target.files[0])}
+            className="w-full text-sm text-gray-300 
+            file:mr-4 file:py-2 file:px-4
+            file:rounded-lg file:border-0
+            file:bg-indigo-500 file:text-white
+            hover:file:bg-indigo-600"
+          />
+
+          <button
+            disabled={loading}
+            className="w-full py-2 rounded-xl text-white font-semibold
+            bg-gradient-to-r from-indigo-500 to-purple-600
+            hover:opacity-90 transition"
+          >
+            {loading ? "Uploading..." : "Update Avatar"}
+          </button>
+
+          {message && (
+            <p className="text-sm text-gray-300 mt-2">
+              {message}
+            </p>
+          )}
+
+        </form>
+
+      </motion.div>
     </div>
   );
 }
