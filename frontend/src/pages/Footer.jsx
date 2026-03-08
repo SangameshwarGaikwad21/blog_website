@@ -58,7 +58,7 @@ export default function Footer() {
 
             <motion.a
               whileHover={{ scale: 1.2, rotate: 5 }}
-              href="https://github.com/gaikwadsangameshwar"
+              href="https://github.com/SangameshwarGaikwad21"
               target="_blank"
               className="p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition"
             >
