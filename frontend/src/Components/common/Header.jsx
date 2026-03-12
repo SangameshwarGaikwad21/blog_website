@@ -1,19 +1,14 @@
 "use client";
-
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
 
 function Header() {
   return (
     <header className="relative py-28 overflow-hidden bg-gray-50">
-
-      {/* Gradient Glow Background */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-purple-400 opacity-30 blur-3xl rounded-full"></div>
       <div className="absolute top-20 -right-24 w-96 h-96 bg-blue-400 opacity-30 blur-3xl rounded-full"></div>
-
       <div className="relative mx-6 sm:mx-16 xl:mx-24 text-center">
 
-        {/* Title */}
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -23,7 +18,7 @@ function Header() {
           Your Own{" "}
           <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             <Typewriter
-              words={["Blogging"]}
+             words={["Blogging","TechNotes","CodeStories"]}
               loop={0}
               cursor={false}
               typeSpeed={80}
