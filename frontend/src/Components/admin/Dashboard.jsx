@@ -50,15 +50,15 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-slate-950 text-gray-200">
+    <div className="flex flex-col lg:flex-row min-h-screen bg-slate-950 text-gray-200">
 
       {/* Sidebar */}
-      <aside className="w-64 bg-slate-900 border-r border-slate-800 p-6">
-        <h2 className="text-2xl font-bold text-indigo-400 mb-8">
+      <aside className="w-full lg:w-64 bg-slate-900 border-b lg:border-b-0 lg:border-r border-slate-800 p-4 lg:p-6">
+        <h2 className="text-xl lg:text-2xl font-bold text-indigo-400 mb-4 lg:mb-8">
           Admin Panel
         </h2>
 
-        <nav className="flex flex-col gap-4">
+        <nav className="flex lg:flex-col gap-4">
           <a href="#users" className="hover:text-indigo-400">
             Users
           </a>
@@ -69,10 +69,10 @@ const Dashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 sm:p-6 lg:p-8">
 
         {/* Stats */}
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 lg:mb-10">
           <StatCard title="Total Users" value={users.length} />
           <StatCard title="Total Blogs" value={blogs.length} />
           <StatCard
@@ -86,12 +86,12 @@ const Dashboard = () => {
         </section>
 
         {/* Users Section */}
-        <section id="users" className="mb-14">
-          <h2 className="text-2xl font-semibold text-indigo-400 mb-6">
+        <section id="users" className="mb-12">
+          <h2 className="text-xl lg:text-2xl font-semibold text-indigo-400 mb-6">
             Users
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
             {users.map((user) => (
               <motion.div
                 key={user._id}
@@ -102,7 +102,7 @@ const Dashboard = () => {
                   <img
                     src={user.avatar || "https://via.placeholder.com/80"}
                     alt={user.username}
-                    className="w-14 h-14 rounded-full"
+                    className="w-12 h-12 lg:w-14 lg:h-14 rounded-full object-cover"
                   />
 
                   <div>
@@ -128,21 +128,21 @@ const Dashboard = () => {
 
         {/* Blogs Section */}
         <section id="blogs">
-          <h2 className="text-2xl font-semibold text-indigo-400 mb-6">
+          <h2 className="text-xl lg:text-2xl font-semibold text-indigo-400 mb-6">
             Blogs
           </h2>
 
           <div className="overflow-x-auto bg-slate-900 border border-slate-800 rounded-lg">
-            <table className="w-full">
+            <table className="min-w-[700px] w-full text-sm">
 
               <thead className="bg-slate-800 text-gray-300">
                 <tr>
-                  <th className="p-3">Title</th>
-                  <th className="p-3">Author</th>
-                  <th className="p-3">Status</th>
-                  <th className="p-3">Category</th>
-                  <th className="p-3">Created</th>
-                  <th className="p-3">Actions</th>
+                  <th className="p-3 text-left">Title</th>
+                  <th className="p-3 text-left">Author</th>
+                  <th className="p-3 text-left">Status</th>
+                  <th className="p-3 text-left">Category</th>
+                  <th className="p-3 text-left">Created</th>
+                  <th className="p-3 text-left">Actions</th>
                 </tr>
               </thead>
 
@@ -173,7 +173,7 @@ const Dashboard = () => {
                       {new Date(blog.createdAt).toLocaleDateString()}
                     </td>
 
-                    <td className="p-3 flex gap-2">
+                    <td className="p-3 flex flex-wrap gap-2">
                       <Link
                         to={`/admin/update-blog/${blog._id}`}
                         className="px-3 py-1 bg-blue-600 rounded hover:bg-blue-500"
@@ -202,7 +202,7 @@ const Dashboard = () => {
       <AnimatePresence>
         {selectedUser && (
           <motion.div
-            className="fixed inset-0 bg-black/50 flex items-center justify-center"
+            className="fixed inset-0 bg-black/60 flex items-center justify-center p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -211,7 +211,7 @@ const Dashboard = () => {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
-              className="bg-slate-900 p-6 rounded-lg w-96"
+              className="bg-slate-900 p-6 rounded-lg w-full max-w-sm"
             >
               <h2 className="text-xl font-semibold mb-4">
                 User Details
@@ -245,11 +245,10 @@ const StatCard = ({ title, value }) => {
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
-      className="bg-slate-900 border border-slate-800 rounded-lg p-6"
+      className="bg-slate-900 border border-slate-800 rounded-lg p-5 lg:p-6"
     >
       <h3 className="text-gray-400 text-sm">{title}</h3>
-      <p className="text-3xl font-bold text-white mt-2">{value}</p>
+      <p className="text-2xl lg:text-3xl font-bold text-white mt-2">{value}</p>
     </motion.div>
   );
 };
-
