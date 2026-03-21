@@ -43,7 +43,7 @@ export default function CommentsItem({
   return (
     <div className="border-b py-3">
       <p className="text-sm text-gray-500">
-        {comment.user?.username}
+        {comment.owner?.name}
       </p>
 
       {isEditing ? (

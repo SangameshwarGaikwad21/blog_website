@@ -101,7 +101,7 @@ const login = asyncHandler(async (req, res) => {
     "-password -refreshToken"
   );
 
-  // cookies are OPTIONAL, headers are primary
+  
   const cookieOptions = {
     httpOnly: true,
     secure: true,
