@@ -239,16 +239,16 @@ export default function CreateBlog({ onNewBlog }) {
 
       {/* Button */}
       <button type="submit"  disabled={loading}
-  className={`
-    w-full
-    py-3
-    rounded-lg
-    font-semibold
-    text-white
-    text-base
-    shadow-lg
-    transition-all
-    duration-300
+    className={`
+          w-full
+          py-3
+          rounded-lg
+          font-semibold
+          text-white
+          text-base
+          shadow-lg
+          transition-all
+          duration-300
     ${
       loading
         ? "bg-blue-400 cursor-not-allowed"

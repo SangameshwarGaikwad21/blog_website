@@ -18,7 +18,7 @@ function Header() {
           Your Own{" "}
           <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             <Typewriter
-             words={["Blogging","TechNotes","CodeStories"]}
+             words={["Blogging"]}
               loop={0}
               cursor={false}
               typeSpeed={80}

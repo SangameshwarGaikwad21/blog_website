@@ -44,7 +44,6 @@ export default function BlogList() {
   return (
     <>
       
-
       <div className="grid grid-cols-3 gap-6 mb-5">
         {filteredBlogs?.map((blog) => (
           <BlogCard key={blog._id} blog={blog} />
