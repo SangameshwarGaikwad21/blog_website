@@ -51,11 +51,12 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-slate-950 text-gray-200">
-
-      {/* Sidebar */}
       <aside className="w-full lg:w-64 bg-slate-900 border-b lg:border-b-0 lg:border-r border-slate-800 p-4 lg:p-6">
         <h2 className="text-xl lg:text-2xl font-bold text-indigo-400 mb-4 lg:mb-8">
-          Admin Panel
+        <Link to="/home">
+           Admin Panel
+        </Link>
+ 
         </h2>
 
         <nav className="flex lg:flex-col gap-4">
