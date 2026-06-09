@@ -46,23 +46,7 @@ function Header({ searchQuery, setSearchQuery }) {
           className="mt-12 flex justify-center"
           onSubmit={(event) => event.preventDefault()}
         >
-          <div className="flex w-full max-w-3xl flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-3 shadow-2xl shadow-cyan-950/30 backdrop-blur-lg sm:flex-row">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-              placeholder="Search every blog..."
-              className="min-w-0 flex-grow rounded-xl bg-black/50 px-5 py-4 text-white outline-none placeholder:text-gray-500"
-            />
-
-            <button
-              type="submit"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-8 py-4 font-semibold text-black transition hover:bg-cyan-300"
-            >
-              <Search size={18} />
-              Search
-            </button>
-          </div>
+          
         </Motion.form>
       </div>
     </header>

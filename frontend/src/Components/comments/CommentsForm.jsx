@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Send } from "lucide-react";
+import { motion as Motion } from "framer-motion";
 
 export default function CommentsForm({ onSubmit }) {
   const [content, setContent] = useState("");
@@ -22,18 +24,21 @@ export default function CommentsForm({ onSubmit }) {
   return (
     <form onSubmit={handleSubmit} className="mb-6">
       <textarea
-        className="w-full border rounded p-2"
+        className="field-dark min-h-28 resize-none"
         rows="3"
         placeholder="Write a comment..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
       />
-      <button
+      <Motion.button
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.98 }}
         disabled={loading}
-        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+        className="mt-3 inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-4 py-2 font-semibold text-black transition hover:bg-cyan-300 disabled:opacity-50"
       >
+        <Send size={16} />
         {loading ? "Posting..." : "Post Comment"}
-      </button>
+      </Motion.button>
     </form>
   );
 }

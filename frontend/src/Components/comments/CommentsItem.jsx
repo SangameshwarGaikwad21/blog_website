@@ -1,17 +1,9 @@
 import { useState } from "react";
-import {
-  updateComment,
-  deleteComment,
-} from "../../services/commentService";
+import { motion as Motion } from "framer-motion";
+import { updateComment, deleteComment } from "../../services/commentService";
 
-export default function CommentsItem({
-  comment,
-  currentUser,
-  onUpdate,
-  onDelete,
-}) {
+export default function CommentsItem({ comment, currentUser, onUpdate, onDelete }) {
   const isOwner = currentUser?._id === comment.user?._id;
-
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(comment.content);
   const [loading, setLoading] = useState(false);
@@ -41,55 +33,53 @@ export default function CommentsItem({
   };
 
   return (
-    <div className="border-b py-3">
-      <p className="text-sm text-gray-500">
-        {comment.owner?.name}
+    <Motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="rounded-xl border border-white/10 bg-black/30 p-4"
+    >
+      <p className="text-sm font-semibold text-cyan-300">
+        {comment.owner?.name || comment.user?.username || "Reader"}
       </p>
 
       {isEditing ? (
-        <>
+        <div className="mt-3">
           <textarea
-            className="w-full border rounded p-2 mt-1"
+            className="field-dark min-h-24 resize-none"
             value={content}
             onChange={(e) => setContent(e.target.value)}
           />
 
-          <div className="flex gap-2 mt-2">
+          <div className="mt-3 flex flex-wrap gap-2">
             <button
               onClick={handleUpdate}
               disabled={loading}
-              className="px-3 py-1 bg-blue-600 text-black rounded"
+              className="rounded-lg bg-cyan-400 px-3 py-1.5 text-sm font-semibold text-black disabled:opacity-60"
             >
               Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="px-3 py-1 bg-gray-300 rounded"
+              className="rounded-lg border border-white/10 px-3 py-1.5 text-sm text-gray-200"
             >
               Cancel
             </button>
           </div>
-        </>
+        </div>
       ) : (
-        <p className="text-gray-800 mt-1">{comment.content}</p>
+        <p className="mt-2 text-gray-300">{comment.content}</p>
       )}
 
       {isOwner && !isEditing && (
-        <div className="flex gap-3 mt-1 text-sm">
-          <button
-            onClick={() => setIsEditing(true)}
-            className="text-blue-600"
-          >
+        <div className="mt-3 flex gap-3 text-sm">
+          <button onClick={() => setIsEditing(true)} className="text-cyan-300">
             Edit
           </button>
-          <button
-            onClick={handleDelete}
-            className="text-red-600"
-          >
+          <button onClick={handleDelete} className="text-red-400">
             Delete
           </button>
         </div>
       )}
-    </div>
+    </Motion.div>
   );
 }

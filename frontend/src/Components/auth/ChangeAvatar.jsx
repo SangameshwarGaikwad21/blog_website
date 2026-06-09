@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { ImagePlus, Upload } from "lucide-react";
+import { motion as Motion } from "framer-motion";
 import { getProfile, updateProfile } from "../../services/authService";
-import { motion } from "framer-motion";
 
 export default function ChangeAvatar() {
   const [avatar, setAvatar] = useState(null);
@@ -16,6 +17,12 @@ export default function ChangeAvatar() {
     fetchProfile();
   }, []);
 
+  const handleFile = (file) => {
+    if (!file) return;
+    setAvatar(file);
+    setPreview(URL.createObjectURL(file));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!avatar) return;
@@ -26,83 +33,53 @@ export default function ChangeAvatar() {
     try {
       const formData = new FormData();
       formData.append("avatar", avatar);
-
       await updateProfile(formData);
-      setMessage("Avatar updated successfully ✅");
+      setMessage("Avatar updated successfully");
       setAvatar(null);
     } catch (err) {
       console.error(err);
-      setMessage("Avatar update failed ❌");
+      setMessage("Avatar update failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center 
-    bg-slate-950 relative overflow-hidden px-4">
-
-      {/* Glow background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.4 }}
-        className="relative w-full max-w-md
-        bg-slate-900/80 backdrop-blur-xl
-        border border-slate-700
-        p-8 rounded-3xl shadow-2xl text-center"
+    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white">
+      <Motion.form
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        onSubmit={handleSubmit}
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-zinc-950 p-6 text-center shadow-2xl shadow-black/40 sm:p-8"
       >
-
-        <h2 className="text-2xl font-bold mb-6 
-        bg-gradient-to-r from-indigo-400 to-purple-500 
-        bg-clip-text text-transparent">
-          Change Avatar
-        </h2>
+        <h1 className="text-3xl font-bold">Change Avatar</h1>
 
         {preview && (
           <img
             src={preview}
             alt="avatar"
-            className="w-28 h-28 rounded-full border-4 
-            border-indigo-500 object-cover 
-            mx-auto mb-6"
+            className="mx-auto mt-7 h-32 w-32 rounded-full border-4 border-cyan-300 object-cover"
           />
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <label className="mt-7 flex cursor-pointer flex-col items-center rounded-2xl border border-dashed border-gray-700 bg-black/30 p-6 transition hover:border-cyan-300/70">
+          <ImagePlus className="mb-3 text-cyan-300" size={28} />
+          <span className="text-sm font-semibold text-gray-200">Choose new avatar</span>
+          <input type="file" accept="image/*" onChange={(e) => handleFile(e.target.files[0])} className="hidden" />
+        </label>
 
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setAvatar(e.target.files[0])}
-            className="w-full text-sm text-gray-300 
-            file:mr-4 file:py-2 file:px-4
-            file:rounded-lg file:border-0
-            file:bg-indigo-500 file:text-white
-            hover:file:bg-indigo-600"
-          />
+        <Motion.button
+          whileHover={{ y: -2 }}
+          whileTap={{ scale: 0.98 }}
+          disabled={loading}
+          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-black transition hover:bg-cyan-300 disabled:opacity-60"
+        >
+          <Upload size={18} />
+          {loading ? "Uploading..." : "Update Avatar"}
+        </Motion.button>
 
-          <button
-            disabled={loading}
-            className="w-full py-2 rounded-xl text-white font-semibold
-            bg-gradient-to-r from-indigo-500 to-purple-600
-            hover:opacity-90 transition"
-          >
-            {loading ? "Uploading..." : "Update Avatar"}
-          </button>
-
-          {message && (
-            <p className="text-sm text-gray-300 mt-2">
-              {message}
-            </p>
-          )}
-
-        </form>
-
-      </motion.div>
-    </div>
+        {message && <p className="mt-4 text-sm text-gray-300">{message}</p>}
+      </Motion.form>
+    </main>
   );
 }

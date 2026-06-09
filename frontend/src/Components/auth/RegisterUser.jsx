@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { registerUser } from "../../services/authService";
 import { useNavigate, Link } from "react-router-dom";
+import { UserPlus } from "lucide-react";
 import { BsPersonCircle } from "react-icons/bs";
+import { motion as Motion } from "framer-motion";
+import { registerUser } from "../../services/authService";
 
 export default function RegisterUser() {
   const navigate = useNavigate();
-
   const [previewImage, setPreviewImage] = useState("");
   const [formData, setFormData] = useState({
     username: "",
@@ -13,7 +14,6 @@ export default function RegisterUser() {
     password: "",
     avatar: null,
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -31,7 +31,6 @@ export default function RegisterUser() {
     }
 
     setFormData({ ...formData, avatar: file });
-
     const reader = new FileReader();
     reader.onload = () => setPreviewImage(reader.result);
     reader.readAsDataURL(file);
@@ -65,130 +64,74 @@ export default function RegisterUser() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center 
-    bg-slate-950 relative overflow-hidden px-4">
-
-      {/* Glow Background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-      <div className="relative w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-
-        {/* LEFT TEXT */}
-        <div className="text-white text-center md:text-left space-y-5 px-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold 
-          bg-gradient-to-r from-indigo-400 to-purple-500 
-          bg-clip-text text-transparent">
-            Join Our Community 🚀
-          </h1>
-
-          <p className="text-gray-400 text-base md:text-lg leading-relaxed">
-            Create your account and start sharing your ideas,
-            tutorials, and experiences with developers worldwide.
+    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white">
+      <div className="grid w-full max-w-5xl grid-cols-1 items-center gap-8 lg:grid-cols-2">
+        <Motion.section
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-center lg:text-left"
+        >
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+            Start Writing
           </p>
-        </div>
+          <h1 className="mt-4 text-4xl font-extrabold text-white md:text-5xl">
+            Join Our Community
+          </h1>
+          <p className="mt-5 text-gray-400">
+            Create your account and share ideas with readers everywhere.
+          </p>
+        </Motion.section>
 
-        {/* REGISTER CARD */}
-        <div className="w-full max-w-md bg-slate-900/80 backdrop-blur-xl 
-        border border-slate-700 p-8 rounded-2xl shadow-2xl mx-auto">
+        <Motion.form
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
+          onSubmit={handleSubmit}
+          className="mx-auto w-full max-w-md rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl shadow-black/40 sm:p-8"
+        >
+          <h2 className="text-center text-2xl font-bold">Create Account</h2>
 
-          <h2 className="text-2xl font-bold text-center text-white mb-6">
-            Create Account
-          </h2>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-
-            {/* Avatar Upload */}
-            <label htmlFor="avatar" className="flex justify-center cursor-pointer">
-              {previewImage ? (
-                <img
-                  src={previewImage}
-                  alt="Avatar preview"
-                  className="w-24 h-24 rounded-full border-2 
-                  border-indigo-500 object-cover"
-                />
-              ) : (
-                <BsPersonCircle className="w-24 h-24 text-gray-500 hover:text-indigo-400 transition" />
-              )}
-            </label>
-
-            <input
-              type="file"
-              id="avatar"
-              className="hidden"
-              accept="image/*"
-              onChange={handleImage}
-            />
-
-            {/* Username */}
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-slate-800 
-              text-white border border-slate-700 
-              focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-
-            {/* Email */}
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-slate-800 
-              text-white border border-slate-700 
-              focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-
-            {/* Password */}
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-3 rounded-lg bg-slate-800 
-              text-white border border-slate-700 
-              focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-
-            {/* Error */}
-            {error && (
-              <p className="text-red-500 text-sm text-center">
-                {error}
-              </p>
+          <label htmlFor="avatar" className="mt-6 flex cursor-pointer justify-center">
+            {previewImage ? (
+              <img
+                src={previewImage}
+                alt="Avatar preview"
+                className="h-24 w-24 rounded-full border-2 border-cyan-300 object-cover"
+              />
+            ) : (
+              <BsPersonCircle className="h-24 w-24 text-gray-600 transition hover:text-cyan-300" />
             )}
+          </label>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full py-3 rounded-lg font-semibold 
-              bg-gradient-to-r from-indigo-500 to-purple-600 
-              hover:opacity-90 text-white transition ${
-                loading ? "opacity-60 cursor-not-allowed" : ""
-              }`}
-            >
-              {loading ? "Creating..." : "Create Account"}
-            </button>
+          <input type="file" id="avatar" className="hidden" accept="image/*" onChange={handleImage} />
 
-            {/* Login link */}
-            <div className="text-center text-sm text-gray-400">
-              Already have an account?{" "}
-              <Link to="/login" className="text-indigo-400 hover:underline">
-                Login
-              </Link>
-            </div>
+          <div className="mt-6 grid gap-4">
+            <input name="username" placeholder="Username" value={formData.username} onChange={handleChange} className="field-dark" />
+            <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="field-dark" />
+            <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} className="field-dark" />
+          </div>
 
-          </form>
-        </div>
+          {error && <p className="mt-4 rounded-xl bg-red-500/10 p-3 text-center text-sm text-red-300">{error}</p>}
 
+          <Motion.button
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.98 }}
+            type="submit"
+            disabled={loading}
+            className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-black transition hover:bg-cyan-300 disabled:opacity-60"
+          >
+            <UserPlus size={18} />
+            {loading ? "Creating..." : "Create Account"}
+          </Motion.button>
+
+          <p className="mt-5 text-center text-sm text-gray-400">
+            Already have an account?{" "}
+            <Link to="/login" className="font-semibold text-cyan-300 hover:underline">
+              Login
+            </Link>
+          </p>
+        </Motion.form>
       </div>
-    </div>
+    </main>
   );
 }
-

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getMyBlogs, deleteBlog } from "../../services/blogService";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { Edit, Trash2 } from "lucide-react";
+import { motion as Motion } from "framer-motion";
+import { getMyBlogs, deleteBlog } from "../../services/blogService";
 
 const MyBlogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -24,109 +25,84 @@ const MyBlogs = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    const confirm = window.confirm("Are you sure you want to delete this blog?");
-    if (!confirm) return;
+    const confirmDelete = window.confirm("Are you sure you want to delete this blog?");
+    if (!confirmDelete) return;
 
     try {
       await deleteBlog(id);
-      setBlogs((prev) => prev.filter((b) => b._id !== id));
+      setBlogs((prev) => prev.filter((blog) => blog._id !== id));
     } catch (err) {
       console.error("Delete failed", err);
       alert("Failed to delete blog");
     }
   };
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-slate-950">
-        <p className="text-gray-400 text-lg">Loading blogs...</p>
-      </div>
+      <main className="flex min-h-screen items-center justify-center bg-black text-gray-300">
+        Loading blogs...
+      </main>
     );
-
-  if (blogs.length === 0)
-    return (
-      <div className="flex justify-center items-center h-screen bg-slate-950">
-        <p className="text-gray-400 text-lg">No blogs created yet.</p>
-      </div>
-    );
+  }
 
   return (
-    <div className="min-h-screen bg-slate-950 px-4 py-10 relative overflow-hidden">
+    <main className="min-h-screen bg-black px-4 py-10 text-white sm:px-6">
+      <div className="mx-auto max-w-5xl">
+        <Motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-10 text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+            Dashboard
+          </p>
+          <h1 className="mt-3 text-4xl font-bold">My Blogs</h1>
+        </Motion.div>
 
-      {/* Glow background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
+        {blogs.length === 0 ? (
+          <div className="rounded-2xl border border-white/10 bg-zinc-950 p-10 text-center text-gray-400">
+            No blogs created yet.
+          </div>
+        ) : (
+          <div className="grid gap-6">
+            {blogs.map((blog) => (
+              <Motion.article
+                key={blog._id}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -4 }}
+                className="overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 shadow-xl shadow-black/30"
+              >
+                {blog.thumbnail && (
+                  <img src={blog.thumbnail} alt={blog.title} className="h-52 w-full object-cover" />
+                )}
 
-      <h2 className="text-4xl font-bold mb-10 text-center 
-      bg-gradient-to-r from-indigo-400 to-purple-500 
-      bg-clip-text text-transparent">
-        📚 My Blogs
-      </h2>
+                <div className="p-5">
+                  <h2 className="text-2xl font-semibold">{blog.title}</h2>
+                  <p className="mt-3 line-clamp-3 text-gray-400">
+                    {blog.context || "No content"}
+                  </p>
 
-      <div className="max-w-4xl mx-auto space-y-6">
-
-        {blogs.map((blog) => (
-          <motion.div
-            key={blog._id}
-            whileHover={{ scale: 1.02, y: -4 }}
-            transition={{ duration: 0.2 }}
-            className="bg-slate-900/80 backdrop-blur-xl
-            border border-slate-700
-            rounded-2xl shadow-xl overflow-hidden"
-          >
-
-            {blog.thumbnail && (
-              <div className="w-full h-48 overflow-hidden">
-                <img
-                  src={blog.thumbnail}
-                  alt={blog.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                />
-              </div>
-            )}
-
-            <div className="p-5">
-
-              <h3 className="text-xl font-semibold mb-2 text-white">
-                {blog.title}
-              </h3>
-
-              <p className="text-gray-400">
-                {blog.context?.slice(0, 150) || "No content"}...
-              </p>
-
-              <div className="flex justify-end gap-3 mt-4">
-
-                <button
-                  onClick={() => navigate(`/update-blog/${blog._id}`)}
-                  className="px-4 py-2 rounded-lg 
-                  border border-indigo-500 
-                  text-indigo-400 
-                  hover:bg-indigo-500/10 transition"
-                >
-                  ✏️ Edit
-                </button>
-
-                <button
-                  onClick={() => handleDelete(blog._id)}
-                  className="px-4 py-2 rounded-lg 
-                  bg-red-600 text-white 
-                  hover:bg-red-700 transition"
-                >
-                  🗑️ Delete
-                </button>
-
-              </div>
-
-            </div>
-
-          </motion.div>
-        ))}
-
+                  <div className="mt-5 flex flex-wrap justify-end gap-3">
+                    <button
+                      onClick={() => navigate(`/update-blog/${blog._id}`)}
+                      className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-4 py-2 text-cyan-300 transition hover:border-cyan-300/70"
+                    >
+                      <Edit size={16} />
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(blog._id)}
+                      className="inline-flex items-center gap-2 rounded-xl bg-red-500 px-4 py-2 font-semibold text-white transition hover:bg-red-400"
+                    >
+                      <Trash2 size={16} />
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </Motion.article>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </main>
   );
 };
 
 export default MyBlogs;
-

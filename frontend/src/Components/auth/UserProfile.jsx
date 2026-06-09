@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getProfile } from "../../services/authService";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { BookOpen, Image, Pencil } from "lucide-react";
+import { motion as Motion } from "framer-motion";
+import { getProfile } from "../../services/authService";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -22,114 +23,80 @@ export default function Profile() {
     fetchProfile();
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen bg-slate-950">
-        <p className="text-gray-400 text-lg">Loading profile...</p>
-      </div>
+      <main className="flex min-h-screen items-center justify-center bg-black text-gray-300">
+        Loading profile...
+      </main>
     );
+  }
 
-  if (!user)
+  if (!user) {
     return (
-      <div className="flex justify-center items-center h-screen bg-slate-950">
-        <p className="text-red-400 text-lg">User not found</p>
-      </div>
+      <main className="flex min-h-screen items-center justify-center bg-black text-red-300">
+        User not found
+      </main>
     );
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center 
-    bg-slate-950 relative overflow-hidden px-4">
-
-      {/* Glow background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.4 }}
-        className="relative w-full max-w-md
-        backdrop-blur-xl bg-slate-900/80
-        border border-slate-700
-        rounded-3xl shadow-2xl p-8"
+    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white">
+      <Motion.section
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+        className="w-full max-w-md rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl shadow-black/40 sm:p-8"
       >
-
-        {/* Avatar */}
         <div className="flex justify-center">
           <div className="relative">
             <img
               src={user.avatar || "/avatar.png"}
               alt={user.username}
-              className="w-28 h-28 rounded-full border-4 border-indigo-500 object-cover"
+              className="h-28 w-28 rounded-full border-4 border-cyan-300 object-cover"
             />
-
-            <span className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-slate-900 rounded-full"></span>
+            <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-950 bg-green-500"></span>
           </div>
         </div>
 
-        {/* Name */}
-        <div className="text-center mt-4 space-y-1">
-          <h2 className="text-2xl font-semibold capitalize text-white">
-            {user.username}
-          </h2>
-
-          <p className="text-gray-400 text-sm">{user.email}</p>
+        <div className="mt-5 text-center">
+          <h1 className="text-3xl font-bold capitalize text-white">{user.username}</h1>
+          <p className="mt-2 text-sm text-gray-400">{user.email}</p>
         </div>
 
-        <div className="my-6 border-t border-slate-700"></div>
+        <div className="my-7 border-t border-white/10"></div>
 
-        {/* Details */}
-        <div className="space-y-3 text-sm text-gray-300">
-
-          <div className="flex justify-between">
-            <span className="text-gray-400">User ID</span>
-            <span className="font-medium truncate w-40 text-right">
-              {user._id}
-            </span>
-          </div>
-
-          <div className="flex justify-between">
-            <span className="text-gray-400">Joined</span>
-            <span className="font-medium">
-              {new Date(user.createdAt).toLocaleDateString()}
-            </span>
-          </div>
-
+        <div className="grid gap-3 text-sm text-gray-300">
+          <Info label="User ID" value={user._id} />
+          <Info label="Joined" value={new Date(user.createdAt).toLocaleDateString()} />
         </div>
 
-        {/* Buttons */}
-        <div className="mt-6 space-y-4">
-
-          <Link to="/my-blogs">
-            <button className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-lg text-white 
-            bg-gradient-to-r from-indigo-500 to-purple-600 
-            shadow-lg hover:shadow-xl hover:opacity-90 transition mb-4">
-              🔒 My Blogs
-            </button>
+        <div className="mt-7 grid gap-3">
+          <Link to="/my-blogs" className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-black transition hover:bg-cyan-300">
+            <BookOpen size={18} />
+            My Blogs
           </Link>
 
-          <div className="grid grid-cols-2 gap-3">
-
-            <Link to="/editprofile">
-              <button className="w-full border border-indigo-500 text-indigo-400 
-              hover:bg-indigo-500/10 py-2 rounded-xl font-medium transition">
-                ✏️ Edit Profile
-              </button>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Link to="/editprofile" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-gray-200 transition hover:border-cyan-300/70">
+              <Pencil size={16} />
+              Edit Profile
             </Link>
-
-            <Link to="/changeavatar">
-              <button className="w-full border border-indigo-500 text-indigo-400 
-              hover:bg-indigo-500/10 py-2 rounded-xl font-medium transition">
-                🖼️ Change Avatar
-              </button>
+            <Link to="/changeavatar" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-gray-200 transition hover:border-cyan-300/70">
+              <Image size={16} />
+              Avatar
             </Link>
-
           </div>
-
         </div>
-
-      </motion.div>
-    </div>
+      </Motion.section>
+    </main>
   );
 }
 
+function Info({ label, value }) {
+  return (
+    <div className="flex justify-between gap-4 rounded-xl bg-black/30 p-3">
+      <span className="text-gray-500">{label}</span>
+      <span className="truncate text-right font-medium">{value}</span>
+    </div>
+  );
+}

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { toggleLike } from "../../services/authService";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
+import { Heart } from "lucide-react";
 
 export default function BlogCard({ blog }) {
   const [liked, setLiked] = useState(false);
@@ -26,79 +27,61 @@ export default function BlogCard({ blog }) {
 
   return (
     <Link to={`/blog/${blog._id}`} className="block h-full">
-
-      <motion.div
+      <Motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -10, scale: 1.03 }}
+        whileHover={{ y: -8 }}
         transition={{ duration: 0.3 }}
-        className="relative rounded-2xl overflow-hidden 
-        bg-gray-900/80 backdrop-blur-xl 
-        border border-white/10 shadow-xl
-        hover:shadow-purple-500/20 transition-all
-        flex flex-col h-full"
+        className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-zinc-950 shadow-xl shadow-black/30 transition-all hover:border-cyan-300/40 hover:shadow-cyan-950/30"
       >
-
-        {/* Thumbnail */}
         {blog.thumbnail && (
-          <div className="relative h-44 sm:h-48 overflow-hidden">
-
-            <motion.img
+          <div className="relative h-44 overflow-hidden sm:h-48">
+            <Motion.img
               src={blog.thumbnail}
               alt={blog.title}
-              whileHover={{ scale: 1.12 }}
+              whileHover={{ scale: 1.08 }}
               transition={{ duration: 0.4 }}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
 
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t 
-            from-black/70 via-black/20 to-transparent"></div>
-
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
           </div>
         )}
 
-        {/* Like Button */}
-        <motion.button
+        <Motion.button
           onClick={handleLike}
           disabled={loading}
-          whileTap={{ scale: 0.8 }}
-          whileHover={{ scale: 1.15 }}
-          className={`absolute top-3 right-3 z-10
-          px-3 py-1 rounded-full text-xs
-          flex items-center gap-1 backdrop-blur-md
-          ${liked ? "bg-red-500 text-white" : "bg-white/20 text-white"}
-          shadow-lg`}
+          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.08 }}
+          className={`absolute right-3 top-3 z-10 flex items-center gap-1 rounded-full px-3 py-1 text-xs shadow-lg backdrop-blur-md ${
+            liked ? "bg-red-500 text-white" : "bg-white/20 text-white"
+          }`}
         >
-          ❤️ {likesCount}
-        </motion.button>
+          <Heart size={14} fill={liked ? "currentColor" : "none"} />
+          {likesCount}
+        </Motion.button>
 
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
-
-          <span className="text-xs font-medium text-purple-400 uppercase tracking-wide">
-            {blog.category}
+        <div className="flex flex-1 flex-col p-5">
+          <span className="text-xs font-semibold uppercase tracking-wide text-cyan-300">
+            {blog.category || "Blog"}
           </span>
 
-          <h2 className="text-lg sm:text-xl font-bold mt-1 text-white line-clamp-1">
+          <h2 className="mt-2 line-clamp-2 text-lg font-bold text-white sm:text-xl">
             {blog.title}
           </h2>
 
-          <p className="text-gray-400 text-sm mt-2 line-clamp-3 flex-1">
+          <p className="mt-3 line-clamp-3 flex-1 text-sm leading-6 text-gray-400">
             {blog.context}
           </p>
 
-          {/* Read More */}
-          <motion.div
+          <Motion.div
             whileHover={{ x: 5 }}
-            className="mt-4 text-sm text-blue-400 font-medium"
+            className="mt-5 text-sm font-semibold text-cyan-300"
           >
-            Read More →
-          </motion.div>
-
+            Read More
+          </Motion.div>
         </div>
-
-      </motion.div>
+      </Motion.div>
     </Link>
   );
 }

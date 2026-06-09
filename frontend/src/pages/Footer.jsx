@@ -1,88 +1,73 @@
 import { Github, Linkedin, Home } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion as Motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gray-950 text-gray-300 overflow-hidden">
+    <footer className="relative overflow-hidden bg-black text-gray-300">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent"></div>
 
-      {/* Glow background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-      <div className="relative max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-16 md:grid-cols-3">
         <div>
-          <motion.h2
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold bg-gradient-to-r 
-            from-blue-400 via-purple-500 to-pink-500 
-            bg-clip-text text-transparent"
+          <Motion.h2
+            whileHover={{ scale: 1.04 }}
+            className="text-2xl font-bold text-white"
           >
             Sangam Blog_Website
-          </motion.h2>
+          </Motion.h2>
 
-          <p className="mt-4 text-sm text-gray-400 leading-relaxed">
+          <p className="mt-4 text-sm leading-relaxed text-gray-400">
             Sharing thoughts, tutorials, and real-world web development
             experiences.
           </p>
         </div>
 
-        {/* Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">
-            Quick Links
-          </h3>
+          <h3 className="mb-4 text-lg font-semibold text-white">Quick Links</h3>
 
           <ul className="space-y-3">
-
-            <motion.li whileHover={{ x: 6 }}>
+            <Motion.li whileHover={{ x: 6 }}>
               <Link
-                to="/"
-                className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition"
+                to="/home"
+                className="flex items-center gap-2 text-gray-400 transition hover:text-cyan-300"
               >
                 <Home size={18} />
                 Home
               </Link>
-            </motion.li>
-
+            </Motion.li>
           </ul>
         </div>
 
-        {/* Social */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-4">
-            Follow Me
-          </h3>
+          <h3 className="mb-4 text-lg font-semibold text-white">Follow Me</h3>
 
           <div className="flex gap-5">
-
-            <motion.a
-              whileHover={{ scale: 1.2, rotate: 5 }}
+            <Motion.a
+              whileHover={{ scale: 1.12, rotate: 5 }}
               href="https://github.com/SangameshwarGaikwad21"
               target="_blank"
-              className="p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition"
+              rel="noreferrer"
+              className="rounded-lg border border-white/10 bg-white/10 p-3 transition hover:bg-white/15"
             >
               <Github size={20} />
-            </motion.a>
+            </Motion.a>
 
-            <motion.a
-              whileHover={{ scale: 1.2, rotate: -5 }}
+            <Motion.a
+              whileHover={{ scale: 1.12, rotate: -5 }}
               href="https://www.linkedin.com/in/sangameshwar-gaikwad-a83426340"
               target="_blank"
-              className="p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition"
+              rel="noreferrer"
+              className="rounded-lg border border-white/10 bg-white/10 p-3 transition hover:bg-white/15"
             >
               <Linkedin size={20} />
-            </motion.a>
-
+            </Motion.a>
           </div>
         </div>
       </div>
 
-      {/* Bottom */}
-      <div className="border-t border-gray-800 py-5 text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} Sangam Gaikwad. All rights reserved.
+      <div className="border-t border-white/10 py-5 text-center text-sm text-gray-500">
+        Copyright {new Date().getFullYear()} Sangam Gaikwad. All rights reserved.
       </div>
-
     </footer>
   );
 }

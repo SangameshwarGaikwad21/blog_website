@@ -1,51 +1,29 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  getProfile,
-  updateDetails,
-  updatePassword,
-  logout,
-} from "../../services/authService";
-import { motion } from "framer-motion";
+import { LogOut, Save } from "lucide-react";
+import { motion as Motion } from "framer-motion";
+import { getProfile, updateDetails, updatePassword, logout } from "../../services/authService";
 
 export default function EditProfile() {
   const navigate = useNavigate();
-
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-  });
-
-  const [password, setPassword] = useState({
-    oldPassword: "",
-    newPassword: "",
-  });
-
+  const [form, setForm] = useState({ username: "", email: "" });
+  const [password, setPassword] = useState({ oldPassword: "", newPassword: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const fetchProfile = async () => {
-    try {
-      const res = await getProfile();
-      setForm({
-        username: res.data.username,
-        email: res.data.email,
-      });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await getProfile();
+        setForm({ username: res.data.username, email: res.data.email });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     fetchProfile();
   }, []);
-
-  const handleProfileChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handlePasswordChange = (e) =>
-    setPassword({ ...password, [e.target.name]: e.target.value });
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
@@ -55,10 +33,10 @@ export default function EditProfile() {
     try {
       await updateDetails(form);
       setSuccess(true);
-      setMessage("Profile updated successfully 🚀");
+      setMessage("Profile updated successfully");
     } catch {
       setSuccess(false);
-      setMessage("Profile update failed ❌");
+      setMessage("Profile update failed");
     } finally {
       setLoading(false);
     }
@@ -72,11 +50,11 @@ export default function EditProfile() {
     try {
       await updatePassword(password);
       setSuccess(true);
-      setMessage("Password changed successfully 🔐");
+      setMessage("Password changed successfully");
       setPassword({ oldPassword: "", newPassword: "" });
     } catch {
       setSuccess(false);
-      setMessage("Password update failed ❌");
+      setMessage("Password update failed");
     } finally {
       setLoading(false);
     }
@@ -90,156 +68,57 @@ export default function EditProfile() {
       await logout({});
       localStorage.removeItem("token");
       setSuccess(true);
-      setMessage("Logged out successfully 👋");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1000);
+      setMessage("Logged out successfully");
+      setTimeout(() => navigate("/login"), 1000);
     } catch {
       setSuccess(false);
-      setMessage("Logout failed ❌");
+      setMessage("Logout failed");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center 
-    bg-slate-950 relative overflow-hidden p-6">
-
-      {/* Glow Background */}
-      <div className="absolute -top-20 -left-20 w-72 h-72 bg-purple-500 opacity-20 blur-3xl rounded-full"></div>
-      <div className="absolute top-20 -right-20 w-72 h-72 bg-blue-500 opacity-20 blur-3xl rounded-full"></div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md
-        backdrop-blur-xl bg-slate-900/80
-        border border-slate-700
-        p-8 rounded-3xl shadow-2xl
-        space-y-8"
+    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white">
+      <Motion.section
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-2xl rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl shadow-black/40 sm:p-8"
       >
-        <h2 className="text-3xl font-bold text-center 
-        bg-gradient-to-r from-indigo-400 to-purple-500 
-        bg-clip-text text-transparent">
-          Account Settings ⚙️
-        </h2>
+        <h1 className="text-center text-3xl font-bold">Account Settings</h1>
 
-        {/* PROFILE FORM */}
-        <form onSubmit={handleProfileSubmit} className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-300">
-            Profile Details
-          </h3>
+        <div className="mt-8 grid gap-8">
+          <form onSubmit={handleProfileSubmit} className="grid gap-4">
+            <h2 className="text-lg font-semibold text-cyan-300">Profile Details</h2>
+            <input name="username" value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} placeholder="Username" className="field-dark" />
+            <input type="email" name="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="Email" className="field-dark" />
+            <Motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} disabled={loading} className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-black disabled:opacity-60">
+              <Save size={18} />
+              Update Profile
+            </Motion.button>
+          </form>
 
-          <Input
-            name="username"
-            value={form.username}
-            onChange={handleProfileChange}
-            placeholder="Username"
-          />
+          <form onSubmit={handlePasswordSubmit} className="grid gap-4">
+            <h2 className="text-lg font-semibold text-cyan-300">Change Password</h2>
+            <input type="password" name="oldPassword" value={password.oldPassword} onChange={(e) => setPassword({ ...password, oldPassword: e.target.value })} placeholder="Current Password" className="field-dark" />
+            <input type="password" name="newPassword" value={password.newPassword} onChange={(e) => setPassword({ ...password, newPassword: e.target.value })} placeholder="New Password" className="field-dark" />
+            <Motion.button whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }} disabled={loading} className="rounded-xl bg-red-500 px-4 py-3 font-semibold text-white transition hover:bg-red-400 disabled:opacity-60">
+              Change Password
+            </Motion.button>
+          </form>
 
-          <Input
-            name="email"
-            value={form.email}
-            onChange={handleProfileChange}
-            placeholder="Email"
-            type="email"
-          />
+          <button onClick={handleLogout} disabled={loading} className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 font-semibold text-gray-200 transition hover:bg-white/10 disabled:opacity-60">
+            <LogOut size={18} />
+            Logout
+          </button>
 
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
-            disabled={loading}
-            className="w-full bg-gradient-to-r 
-            from-indigo-500 to-purple-600
-            text-white py-2 rounded-xl shadow-lg transition"
-          >
-            Update Profile
-          </motion.button>
-        </form>
-
-        {/* PASSWORD FORM */}
-        <form onSubmit={handlePasswordSubmit} className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-300">
-            Change Password
-          </h3>
-
-          <Input
-            name="oldPassword"
-            value={password.oldPassword}
-            onChange={handlePasswordChange}
-            placeholder="Current Password"
-            type="password"
-          />
-
-          <Input
-            name="newPassword"
-            value={password.newPassword}
-            onChange={handlePasswordChange}
-            placeholder="New Password"
-            type="password"
-          />
-
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.95 }}
-            disabled={loading}
-            className="w-full bg-red-600 hover:bg-red-700
-            text-white py-2 rounded-xl shadow-lg transition"
-          >
-            Change Password
-          </motion.button>
-        </form>
-
-        {/* LOGOUT */}
-        <motion.button
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={handleLogout}
-          disabled={loading}
-          className="w-full bg-gray-700 hover:bg-gray-800
-          text-white py-2 rounded-xl shadow-lg transition"
-        >
-          Logout
-        </motion.button>
-
-        {message && (
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className={`text-center text-sm font-medium ${
-              success ? "text-green-400" : "text-red-400"
-            }`}
-          >
-            {message}
-          </motion.p>
-        )}
-      </motion.div>
-    </div>
+          {message && (
+            <p className={`rounded-xl p-3 text-center text-sm font-medium ${success ? "bg-green-500/10 text-green-300" : "bg-red-500/10 text-red-300"}`}>
+              {message}
+            </p>
+          )}
+        </div>
+      </Motion.section>
+    </main>
   );
 }
-
-const Input = ({
-  name,
-  value,
-  onChange,
-  placeholder,
-  type = "text",
-}) => (
-  <motion.input
-    whileFocus={{ scale: 1.02 }}
-    name={name}
-    value={value}
-    onChange={onChange}
-    type={type}
-    placeholder={placeholder}
-    className="w-full border border-slate-700
-    rounded-xl px-4 py-2
-    focus:ring-2 focus:ring-indigo-500
-    outline-none transition
-    bg-slate-800 text-white"
-  />
-);
-
