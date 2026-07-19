@@ -51,15 +51,21 @@ const Dashboard = () => {
   return (
     <main className="min-h-screen bg-black text-gray-200 lg:flex">
       <aside className="border-b border-white/10 bg-zinc-950 p-5 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
-        <Link to="/home" className="text-2xl font-bold text-white">
-          Admin Panel
+        <Link to="/home" className="text-4xl font-bold text-white">
+          <h1 className="text-2xl font-bold hover:text-purple-700">
+            Admin Panel
+          </h1>
         </Link>
         <nav className="mt-6 flex gap-4 lg:flex-col">
-          <a href="#users" className="text-gray-400 transition hover:text-cyan-300">
-            Users
+          <a href="#users" className=" text-gray-400 transition hover:text-cyan-300">
+            <h1 className="text-xl text-white font-bold hover:text-purple-700">
+              Users
+            </h1>
           </a>
-          <a href="#blogs" className="text-gray-400 transition hover:text-cyan-300">
-            Blogs
+          <a href="#blogs" className="text-2xl text-gray-400 transition hover:text-cyan-300">
+            <h1 className="text-xl text-white font-bold hover:text-purple-700">
+              Blogs
+            </h1>
           </a>
         </nav>
       </aside>
