@@ -10,25 +10,24 @@ function Header({ searchQuery, setSearchQuery }) {
 
       <div className="relative mx-auto max-w-5xl text-center">
         <Motion.h1
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl"
-        >
-          Your Own{" "}
-          <span className="text-cyan-300">
-            <Typewriter
-              words={["Blogging"]}
-              loop={0}
-              cursor={false}
-              typeSpeed={80}
-              deleteSpeed={80}
-              delaySpeed={1200}
-            />
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl font-extrabold leading-tight text-white sm:text-6xl md:text-7xl"
+          >
+        Share Your{" "}
+        <span className="text-cyan-300">
+          <Typewriter
+            words={["Blog","Stories", "Ideas"]}
+            loop={0}
+            cursor={false}
+            typeSpeed={80}
+            deleteSpeed={80}
+            delaySpeed={1200}
+          />
           </span>{" "}
-          Platform
+          With the World
         </Motion.h1>
-
         <Motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
