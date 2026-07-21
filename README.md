@@ -17,8 +17,11 @@ This project is built to simulate a **real-world production application**, focus
 - Responsive User Interface
 - Production-level Deployment
 
+- Add the rate limitaions
 
-## 🛠️ Tech Stack
+## 🛠️ technology
+
+-Docker
 
 ### Frontend
 - React / Next.js
