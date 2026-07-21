@@ -2,8 +2,8 @@ import { Router } from "express";
 import { changeAccountDetails, changeUserAvatar, changeUserPassword, getAllUsers, getSingleUser, login, logout, refreshAccessToken, registerUser, toggleLike } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { VerifyJWT,isAdmin } from "../middlewares/auth.middlewares.js";
-import loginRateLimitations from "../middlewares/loginRatelimitations.js";
-import RegisterRateLimitations from "../rateLimitations/registerRateLimitations.js"
+import RegisterRateLimitations from "../rateLimitations/userRateLimit/registerRateLimitations.js";
+import loginRateLimitations from "../rateLimitations/userRateLimit/loginRatelimitations.js";
 
 const router=Router()
 

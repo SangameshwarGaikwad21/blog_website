@@ -1,6 +1,6 @@
-import { ApiError } from "../utils/ApiError.js";
-import asyncHandler from "../utils/asyncHandler.js";
-import {redis} from "../index.js";
+import { ApiError } from "../../utils/ApiError.js";
+import asyncHandler from "../../utils/asyncHandler.js";
+import {redis} from "../../index.js";
 
 const loginRateLimitations = asyncHandler(async (req, res, next) => {
   try {
