@@ -16,7 +16,7 @@ router.route("/register").post(upload.fields([
     }
 ]),RegisterRateLimitations,registerUser)
 
-router.route("/login").post(login)
+router.route("/login").post(loginRateLimitations,login)
 router.route("/logout").post(VerifyJWT,logout)
 router.route("/change-password").post(VerifyJWT,changeUserPassword)
 router.route("/change-avatar").post(VerifyJWT,upload.single("avatar"),changeUserAvatar)
