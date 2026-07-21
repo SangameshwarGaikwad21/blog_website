@@ -2,6 +2,7 @@ import { Router } from "express";
 import { changeAccountDetails, changeUserAvatar, changeUserPassword, getAllUsers, getSingleUser, login, logout, refreshAccessToken, registerUser, toggleLike } from "../controllers/user.controllers.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { VerifyJWT,isAdmin } from "../middlewares/auth.middlewares.js";
+import loginRateLimitations from "../middlewares/loginRatelimitations.js";
 
 const router=Router()
 
@@ -14,7 +15,7 @@ router.route("/register").post(upload.fields([
     }
 ]), registerUser)
 
-router.route("/login").post(login)
+router.route("/login").post(loginRateLimitations,login)
 router.route("/logout").post(VerifyJWT,logout)
 router.route("/change-password").post(VerifyJWT,changeUserPassword)
 router.route("/change-avatar").post(VerifyJWT,upload.single("avatar"),changeUserAvatar)
