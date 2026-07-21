@@ -3,6 +3,7 @@ import { changeAccountDetails, changeUserAvatar, changeUserPassword, getAllUsers
 import { upload } from "../middlewares/multer.middlewares.js";
 import { VerifyJWT,isAdmin } from "../middlewares/auth.middlewares.js";
 import loginRateLimitations from "../middlewares/loginRatelimitations.js";
+import RegisterRateLimitations from "../rateLimitations/registerRateLimitations.js"
 
 const router=Router()
 
@@ -13,7 +14,7 @@ router.route("/register").post(upload.fields([
         name:"avatar",
         maxCount:1
     }
-]), registerUser)
+]),RegisterRateLimitations,registerUser)
 
 router.route("/login").post(loginRateLimitations,login)
 router.route("/logout").post(VerifyJWT,logout)
