@@ -17,7 +17,6 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/home" element={<Home/>}/> 
       <Route path='/' element={<RegisterUser/>}/>
       <Route path='/login' element={<LoginForm/>}/>
       <Route path="/profile" element={<UserProfile />}/>
