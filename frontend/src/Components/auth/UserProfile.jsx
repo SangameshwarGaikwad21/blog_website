@@ -1,8 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, Image, Pencil } from "lucide-react";
+import { ArrowLeft, BookOpen, Image, Loader2, Pencil } from "lucide-react";
 import { motion as Motion } from "framer-motion";
 import { getProfile } from "../../services/authService";
+
+// Uses the Inter font (add once in index.html):
+// <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+const ACCENT = "#ff6b0a";
+const fontStyle = { fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" };
+
+const secondaryLink =
+  "inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm font-semibold text-zinc-200 " +
+  "transition hover:border-orange-500/40 hover:bg-orange-500/10 hover:text-orange-400 " +
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60 sm:py-2.5";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -25,78 +36,142 @@ export default function Profile() {
 
   if (loading) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-black text-gray-300">
-        Loading profile...
+      <main
+        className="flex min-h-[100dvh] items-center justify-center bg-[#08080a] text-zinc-400"
+        style={fontStyle}
+      >
+        <span className="inline-flex items-center gap-2 text-sm">
+          <Loader2 size={18} className="animate-spin text-orange-500" />
+          Loading profile...
+        </span>
       </main>
     );
   }
 
   if (!user) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-black text-red-300">
-        User not found
+      <main
+        className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-[#08080a] px-4 text-center"
+        style={fontStyle}
+      >
+        <h1 className="text-2xl font-extrabold tracking-tight text-zinc-50">User not found</h1>
+        <p className="max-w-sm text-sm text-zinc-500">
+          We couldn't load your profile. Try signing in again.
+        </p>
+        <Link
+          to="/home"
+          className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60"
+          style={{ backgroundColor: ACCENT }}
+        >
+          <ArrowLeft size={16} />
+          Back to home
+        </Link>
       </main>
     );
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-black px-4 py-10 text-white">
-      <Motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.35 }}
-        className="w-full max-w-md rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl shadow-black/40 sm:p-8"
-      >
-        <div className="flex justify-center">
-          <div className="relative">
-            <img
-              src={user.avatar || "/avatar.png"}
-              alt={user.username}
-              className="h-28 w-28 rounded-full border-4 border-cyan-300 object-cover"
+    <main
+      className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-[#08080a] px-4 py-8 text-white sm:px-6 sm:py-10"
+      style={fontStyle}
+    >
+      {/* subtle grid + glow */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+          maskImage: "radial-gradient(ellipse 60% 50% at 50% 30%, #000 30%, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(ellipse 60% 50% at 50% 30%, #000 30%, transparent 75%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-[-120px] h-[380px] w-[120%] max-w-[800px] -translate-x-1/2 rounded-full blur-3xl"
+        style={{
+          background:
+            "radial-gradient(closest-side, rgba(255,107,10,0.28), rgba(255,107,10,0.07) 60%, transparent)",
+        }}
+      />
+
+      <div className="relative w-full max-w-md">
+        <Link
+          to="/home"
+          className="group mb-4 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3.5 py-2 text-sm font-medium text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/60"
+        >
+          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
+          Back to home
+        </Link>
+
+        <Motion.section
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+          className="w-full rounded-xl border border-white/10 bg-[#0e0e10]/90 p-5 shadow-2xl shadow-black/50 backdrop-blur sm:p-8"
+        >
+          <div className="flex justify-center">
+            <div className="relative">
+              <img
+                src={user.avatar || "/avatar.png"}
+                alt={user.username}
+                className="h-24 w-24 rounded-full border-2 object-cover sm:h-28 sm:w-28"
+                style={{ borderColor: ACCENT, boxShadow: "0 0 28px rgba(255,107,10,0.3)" }}
+              />
+              <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-[#0e0e10] bg-emerald-500" />
+            </div>
+          </div>
+
+          <div className="mt-5 text-center">
+            <h1 className="break-words text-2xl font-extrabold capitalize tracking-tight text-zinc-50 sm:text-3xl">
+              {user.username}
+            </h1>
+            <p className="mt-1.5 break-all text-sm text-zinc-500">{user.email}</p>
+          </div>
+
+          <div className="my-6 border-t border-white/10 sm:my-7" />
+
+          <dl className="grid gap-2.5 text-sm">
+            <Info label="User ID" value={user._id} />
+            <Info
+              label="Joined"
+              value={user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "-"}
             />
-            <span className="absolute bottom-1 right-1 h-4 w-4 rounded-full border-2 border-zinc-950 bg-green-500"></span>
-          </div>
-        </div>
+          </dl>
 
-        <div className="mt-5 text-center">
-          <h1 className="text-3xl font-bold capitalize text-white">{user.username}</h1>
-          <p className="mt-2 text-sm text-gray-400">{user.email}</p>
-        </div>
-
-        <div className="my-7 border-t border-white/10"></div>
-
-        <div className="grid gap-3 text-sm text-gray-300">
-          <Info label="User ID" value={user._id} />
-          <Info label="Joined" value={new Date(user.createdAt).toLocaleDateString()} />
-        </div>
-
-        <div className="mt-7 grid gap-3">
-          <Link to="/my-blogs" className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-400 px-4 py-3 font-semibold text-black transition hover:bg-cyan-300">
-            <BookOpen size={18} />
-            My Blogs
-          </Link>
-
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <Link to="/editprofile" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-gray-200 transition hover:border-cyan-300/70">
-              <Pencil size={16} />
-              Edit Profile
+          <div className="mt-6 grid gap-3 sm:mt-7">
+            <Link
+              to="/my-blogs"
+              className="inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-semibold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400/60 sm:py-2.5"
+              style={{ backgroundColor: ACCENT, boxShadow: "0 0 24px rgba(255,107,10,0.25)" }}
+            >
+              <BookOpen size={16} />
+              My blogs
             </Link>
-            <Link to="/changeavatar" className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-semibold text-gray-200 transition hover:border-cyan-300/70">
-              <Image size={16} />
-              Avatar
-            </Link>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Link to="/editprofile" className={secondaryLink}>
+                <Pencil size={16} />
+                Edit profile
+              </Link>
+              <Link to="/changeavatar" className={secondaryLink}>
+                <Image size={16} />
+                Change avatar
+              </Link>
+            </div>
           </div>
-        </div>
-      </Motion.section>
+        </Motion.section>
+      </div>
     </main>
   );
 }
 
 function Info({ label, value }) {
   return (
-    <div className="flex justify-between gap-4 rounded-xl bg-black/30 p-3">
-      <span className="text-gray-500">{label}</span>
-      <span className="truncate text-right font-medium">{value}</span>
+    <div className="flex items-center justify-between gap-4 rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-2.5">
+      <dt className="shrink-0 text-xs text-zinc-500">{label}</dt>
+      <dd className="min-w-0 truncate text-right text-sm font-medium text-zinc-200">{value}</dd>
     </div>
   );
 }
