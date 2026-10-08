@@ -12,13 +12,15 @@ import AdminRoutes from './Components/admin/AdminRoutes'
 import Dashboard from './Components/admin/Dashboard'
 import UpdateBlog from './Components/admin/UpdateBlog'
 import MyBlogs from './Components/auth/MyBlogs'
+import HomePage from './pages/HomePage'
 
 function App() {
 
   return (
     <Routes>
       <Route path="/home" element={<Home/>}/> 
-      <Route path='/' element={<RegisterUser/>}/>
+      <Route path='/' element={<HomePage/>}/>
+      <Route path='/register' element={<RegisterUser/>}/>
       <Route path='/login' element={<LoginForm/>}/>
       <Route path="/profile" element={<UserProfile />}/>
       <Route path="/editprofile" element={<EditProfile/>}/> 
