@@ -42,29 +42,28 @@ This project is built to simulate a **real-world production application**, focus
 - Backend: Render
 
 ## User Register Page 
-<img width="1200" height="600" alt="Screenshot 2026-03-08 052625" src="https://github.com/user-attachments/assets/c1442424-6268-4b18-9413-01843eabbaa9" />
+<img width="900" height="900" alt="Screenshot 2026-10-11 233200" src="https://github.com/user-attachments/assets/848024f0-b121-4ca6-be1c-4aa5136b9626" />
 
 ## Login Page
-<img width="1200" height="600" alt="Screenshot 2026-03-08 052634" src="https://github.com/user-attachments/assets/0f7d271c-dafd-4a06-8328-1e4d9fb857f0" />
+<img width="900" height="900" alt="Screenshot 2026-10-11 233210" src="https://github.com/user-attachments/assets/fbd155db-f005-4eba-a234-c653a4936726" />
 
 ## Home Page & All Blogs
-<img width="1200" height="600" alt="Screenshot 2026-03-08 051925" src="https://github.com/user-attachments/assets/64f8209b-0f51-46b1-b1fc-7202e98f2b05" />
+<img width="900" height="900" alt="Screenshot 2026-10-11 233242" src="https://github.com/user-attachments/assets/8f33df93-51c5-4c99-8f18-5e0dd3ef55e6" />
 
 ## Update Details Like Username and Email Password
-<img width="1200" height="600" alt="Screenshot 2026-03-08 053213" src="https://github.com/user-attachments/assets/7b0626f3-4063-4f47-86d1-a630d9ef55e1" />
+<img width="900" height="900" alt="Screenshot 2026-10-11 233434" src="https://github.com/user-attachments/assets/7925fcd2-db3c-48a6-be70-3473626964fb" />
 
 ## Create Blogs
-<img width="1200" height="600" alt="Screenshot 2026-03-08 051939" src="https://github.com/user-attachments/assets/d34259cb-54a5-4db9-9b1d-cc6b7a5825f1" />
+<img width="900" height="900" alt="Screenshot 2026-03-08 051939" src="https://github.com/user-attachments/assets/d34259cb-54a5-4db9-9b1d-cc6b7a5825f1" />
 
-## Update Blogs
-<img width="1200" height="600" alt="Screenshot 2026-03-08 052011" src="https://github.com/user-attachments/assets/86b0858d-6e38-4547-8083-fd0e65eebeea" />
+## My Blogs
+<img width="900" height="900" alt="Screenshot 2026-03-08 052011" src="https://github.com/user-attachments/assets/86b0858d-6e38-4547-8083-fd0e65eebeea" />
 
-## Single BLog
-<img width="1200" height="600" alt="Screenshot 2026-03-08 054405" src="https://github.com/user-attachments/assets/28c039ee-f9f4-41d7-bede-2a771cff8f98" />
+## ALL BLog
+<img width="900" height="900" alt="Screenshot 2026-03-08 054405" src="https://github.com/user-attachments/assets/28c039ee-f9f4-41d7-bede-2a771cff8f98" />
 
 ## Admin Panel
-<img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/eb626961-c014-4a5a-b852-a7c9dd7d19d4" />
+<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/eb626961-c014-4a5a-b852-a7c9dd7d19d4" />
 
-## Admin Can see the user and Blogs and Updated and delete
 <img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/80f11f2e-d594-4cfe-8b44-c92484237516" />
 
