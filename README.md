@@ -42,28 +42,27 @@ This project is built to simulate a **real-world production application**, focus
 - Backend: Render
 
 ## User Register Page 
-<img width="900" height="900" alt="Screenshot 2026-10-11 233200" src="https://github.com/user-attachments/assets/848024f0-b121-4ca6-be1c-4aa5136b9626" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233200" src="https://github.com/user-attachments/assets/848024f0-b121-4ca6-be1c-4aa5136b9626" />
 
 ## Login Page
-<img width="900" height="900" alt="Screenshot 2026-10-11 233210" src="https://github.com/user-attachments/assets/fbd155db-f005-4eba-a234-c653a4936726" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233210" src="https://github.com/user-attachments/assets/fbd155db-f005-4eba-a234-c653a4936726" />
 
 ## Home Page & All Blogs
-<img width="900" height="900" alt="Screenshot 2026-10-11 233242" src="https://github.com/user-attachments/assets/8f33df93-51c5-4c99-8f18-5e0dd3ef55e6" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233242" src="https://github.com/user-attachments/assets/8f33df93-51c5-4c99-8f18-5e0dd3ef55e6" />
 
 ## Update Details Like Username and Email Password
-<img width="900" height="900" alt="Screenshot 2026-10-11 233434" src="https://github.com/user-attachments/assets/7925fcd2-db3c-48a6-be70-3473626964fb" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233434" src="https://github.com/user-attachments/assets/7925fcd2-db3c-48a6-be70-3473626964fb" />
 
 ## Create Blogs
-<img width="900" height="900" alt="Screenshot 2026-03-08 051939" src="https://github.com/user-attachments/assets/d34259cb-54a5-4db9-9b1d-cc6b7a5825f1" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233320" src="https://github.com/user-attachments/assets/f0faa9c2-8b29-4221-b282-d77ce49626a2" />
 
 ## My Blogs
-<img width="900" height="900" alt="Screenshot 2026-03-08 052011" src="https://github.com/user-attachments/assets/86b0858d-6e38-4547-8083-fd0e65eebeea" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233416" src="https://github.com/user-attachments/assets/c9e56e61-a235-4b55-9d08-492088aafa2e" />
 
 ## ALL BLog
-<img width="900" height="900" alt="Screenshot 2026-03-08 054405" src="https://github.com/user-attachments/assets/28c039ee-f9f4-41d7-bede-2a771cff8f98" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233259" src="https://github.com/user-attachments/assets/f23eb617-1de4-407e-91ab-437eb6cf8f91" />
 
 ## Admin Panel
-<img width="900" height="900" alt="image" src="https://github.com/user-attachments/assets/eb626961-c014-4a5a-b852-a7c9dd7d19d4" />
+<img width="1200" height="600" alt="Screenshot 2026-10-11 233401" src="https://github.com/user-attachments/assets/0d1f206a-0dcf-4d15-842a-58f5fc28af0e" />
 
-<img width="1200" height="600" alt="image" src="https://github.com/user-attachments/assets/80f11f2e-d594-4cfe-8b44-c92484237516" />
 
